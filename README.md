@@ -1,2 +1,2 @@
 # vol-optimize
-Volume restore by a given snapshot name or regex
+collection of ONTAP scripts

@@ -39,22 +39,6 @@ def confirm_restore(volume_name, snap_uuid: str):
     else:
       return False
 
-'''
-def set_volume_guarantee(vol_name, vol_uuid, cluster, guarantee: str):
-  vol_data = {
-        'uuid': vol_uuid,
-        'guarantee': {'type': guarantee}
-         }
-  vol = Volume()
-  try:
-    config.CONNECTION = HostConnection(cluster, args.username, args.password, verify=False)
-    with config.CONNECTION:
-      return vol.patch(**vol_data) 
-  except NetAppRestError as err:
-      log.error(f"Setting volume guarantee to {guarantee} was not successful: {err}")
-      return None
-'''
-
 def get_volume_type(vol_name, vol_uuid, cluster: str):
   try:
     with HostConnection(cluster, args.username, args.password, verify=False):
@@ -100,7 +84,7 @@ def get_volume_uuid(vserver_name, volume_name, cluster: str):
             vol.get()
             return vol.uuid
     except NetAppRestError as err:
-        log.error(f'Volume not found: {err.message}')
+        log.error(f'Volume not found: {err}')
         return None
     
 
@@ -361,12 +345,6 @@ if not args.dryrun:
     if vol_restore:
       log.info(f'Volume was restored successfully. \n New snapshot list:')
       list_all_snapshots(args.volume, volume_uuid, args.cluster)
-      
-      ''' not implemented
-      log.info(f"Setting volume guarantee to none... ")
-      if args.guarantee:
-        set_volume_guarantee(args.volume, volume_uuid, args.cluster, args.guarantee)
-      '''
       
   # restore is not confirmed
   else: 

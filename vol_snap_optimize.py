@@ -33,7 +33,7 @@ def pretty_dict(d, indent=0):
 def confirm_restore(volume_name, snap_uuid: str):
     answer = ""
     while answer.lower() not in ["yes", "no"]:
-      answer = input(f'''Please confirm restoring volume {volume_name} to snapshot UUID {snap_uuid} [Yes,no]''')
+      answer = input(f'Please confirm restoring volume {volume_name} to snapshot UUID {snap_uuid} [Yes,no]')
     if answer.lower() in ["yes"]:
       return True
     else:
@@ -57,13 +57,12 @@ def set_volume_guarantee(vol_name, vol_uuid, cluster, guarantee: str):
 
 def get_volume_type(vol_name, vol_uuid, cluster: str):
   try:
-    config.CONNECTION = HostConnection(cluster, args.username, args.password, verify=False)
-    with config.CONNECTION:
+    with HostConnection(cluster, args.username, args.password, verify=False):
       vol = Volume(uuid=vol_uuid)
       vol.get(fields="type")
       return vol.type
   except NetAppRestError as err:
-      log.error(f'''Error reading type for volume {vol_name}: {err}''')
+      log.error(f'Error reading type for volume {vol_name}: {err}')
       return None
 
 def volume_restore_by_uuid(vol_name, vol_uuid, snap_insta_uuid, snap_name, vserver, cluster: str, dryrun: bool):
@@ -85,29 +84,23 @@ def volume_restore_by_uuid(vol_name, vol_uuid, snap_insta_uuid, snap_name, vserv
                           on vserver {vserver} 
                           on cluster {cluster} 
                           to snapshot {snap_name} (next after the youngest) - only data validation execution''')
-
   try:
-    config.CONNECTION = HostConnection(cluster, args.username, args.password, verify=False)
-    with config.CONNECTION:
+    with HostConnection(cluster, args.username, args.password, verify=False):
       return vol.patch(**vol_data) 
   except NetAppRestError as err:
-      log.error(f'''Volume restore was not successful: {err}''')
+      log.error(f'Volume restore was not successful: {err}')
       return None
-
 
 def get_volume_uuid(vserver_name, volume_name, cluster: str):
     """List Volumes in a SVM """
     try:
-      config.CONNECTION = HostConnection(cluster, args.username, args.password, verify=False)
       log.info(f'''+ Looking up volume {volume_name} on vserver {vserver_name} on cluster {cluster} ''')
-      with config.CONNECTION:
+      with HostConnection(cluster, args.username, args.password, verify=False):
         for vol in Volume.get_collection(**{"svm.name": vserver_name, "name": volume_name}):
             vol.get()
-            log.info(f'''++ Found volume {vol.name} UUID = {vol.uuid} 
-                        on cluster {config.CONNECTION.origin}''')
             return vol.uuid
     except NetAppRestError as err:
-        log.error(f'''Volume not found: {err.message}''')
+        log.error(f'Volume not found: {err.message}')
         return None
     
 
@@ -120,33 +113,33 @@ def find_last_snap(prefix, volume_uuid, cluster: str):
     try:
       config.CONNECTION = HostConnection(cluster, args.username, args.password, verify=False)
       with config.CONNECTION:
-        log.info(f'''Searching relevant snapshots on {config.CONNECTION.origin} ''')
+        log.info(f'Searching relevant snapshots on {config.CONNECTION.origin}')
         snapshots = Snapshot()
         for snap in snapshots.get_collection(volume_uuid, fields="create_time,version_uuid,name,volume,svm", order_by="create_time"):
           if regex.match(snap.name):
             snaps_list = {}
             snaps_list[0] = {"version_uuid": snap.version_uuid, "uuid": snap.uuid, "name": snap.name, "create_time": datetime.timestamp(snap.create_time), "ct_human": snap.create_time }
             idx = 0
-            print(f'''Found relevant snapshot: {snaps_list[0]["name"]}''')
+            if args.verbose:
+              print(f'Found relevant snapshot: {snaps_list[0]["name"]}')
             prefix_snap = True
           else:
             idx += 1
             snaps_list[idx] =  {"version_uuid": snap.version_uuid, "uuid": snap.uuid,  "name": snap.name, "create_time": datetime.timestamp(snap.create_time), "ct_human": snap.create_time  }
     except NetAppRestError as err:
-        log.error(f'''Snapshot not found: {err}''')
+        log.error(f'Snapshot not found: {err}')
     return snaps_list, prefix_snap
 
 def find_snapshot_by_uuid(volume_uuid, snap_uuid, cluster: str):
     """Validate snapshot on volume """
     snapshot_found = False
     try:
-      config.CONNECTION = HostConnection(cluster, args.username, args.password, verify=False)
-      with config.CONNECTION:
+      with HostConnection(cluster, args.username, args.password, verify=False):
         snap = Snapshot(volume_uuid, uuid = snap_uuid)
         snap.get()
         return snap.version_uuid
     except NetAppRestError as err:
-        log.error(f'''Snapshot not found: {err}''')
+        log.error(f'Snapshot not found: {err}')
         return None
 
 def list_all_snapshots(volume_name, volume_uuid, cluster: str):
@@ -155,27 +148,25 @@ def list_all_snapshots(volume_name, volume_uuid, cluster: str):
       config.CONNECTION = HostConnection(cluster, args.username, args.password, verify=False)
       with config.CONNECTION:
         snapshots = Snapshot()
-        log.info(f'''All snapshots on cluster {config.CONNECTION.origin} in volume {volume_name}:''')
+        log.info(f'All snapshots on cluster {config.CONNECTION.origin} in volume {volume_name}:')
         for snap in snapshots.get_collection(volume_uuid, fields="create_time,version_uuid,name,volume,svm", order_by="create_time"):
-          print(f'''{snap.version_uuid},  {snap.name},  {snap.create_time}''')
+          print(f'{snap.version_uuid},  {snap.name},  {snap.create_time}')
     except NetAppRestError as err:
-        log.error(f'''Snapshot not found: {err}''')
+        log.error(f'Snapshot not found: {err}')
         return None
-
 
 def get_prefix_snapshots_list(prefix, volume_name, volume_uuid, cluster: str):
     """List snapshots with a given prefix """
     regex = re.compile(prefix)
     snaps_list = {}
     try:
-      config.CONNECTION = HostConnection(cluster, args.username, args.password, verify=False)
-      with config.CONNECTION:
+      with HostConnection(cluster, args.username, args.password, verify=False):
         snapshots = Snapshot()
         for snap in snapshots.get_collection(volume_uuid, fields="create_time,version_uuid,name,volume,svm", order_by="create_time"):
           if regex.match(snap.name):
             snaps_list[snap.version_uuid] = snap.name
     except NetAppRestError as err:
-        log.error(f'''Snapshots not found: {err}''')
+        log.error(f'Snapshots not found: {err}')
     return snaps_list
 
 def print_summary_pre():
@@ -267,125 +258,126 @@ if __name__ == "__main__":
   if args.debug:
     logging.basicConfig(level=logging.DEBUG, format="[%(asctime)s] [%(levelname)5s] [%(module)s:%(lineno)s] %(message)s")
   else: 
-    logging.basicConfig(level=logging.INFO, format="[%(asctime)s] [%(levelname)5s] [%(module)s:%(lineno)s] %(message)s")
+    logging.basicConfig(level=logging.INFO, format="[%(asctime)s] [%(levelname)5s] %(message)s")
   log = logging.getLogger('snapshots')
-
-  config.CONNECTION = HostConnection(args.cluster, args.username, args.password, verify=False)
-  with config.CONNECTION:
-
-    
-    volume_uuid = get_volume_uuid(args.vserver, args.volume, args.cluster)
-    target_prefix_snaps = get_prefix_snapshots_list(SNAPPREFIX, args.volume, volume_uuid, args.cluster)
-    
-    if volume_uuid == None:
-      log.error('No target volume found on SVM. Exiting.')
-      quit()
-
-    
-    if get_volume_type(args.volume, volume_uuid, args.cluster).lower() != "rw":
-      log.error(f'''\n-- Volume {args.volume} type is not RW. Restore is not possible.
-        To proceed volume type must be RW (Snapmirror destination?)''')
-      quit()
-    
-    if args.debug:
-      # print all snapshots on target volume on target cluster
-      list_all_snapshots(args.volume, volume_uuid, args.cluster)
-
-    # identify the last snapshot to restore to
-    last_snapshot_list, snapshot_found = find_last_snap(SNAPPREFIX, volume_uuid, args.cluster)
-
-    # if snapshot for restore found on target
-    if len(last_snapshot_list) > 1 and snapshot_found:
-      log.info(f'''The youngest relevant snapshot is found: 
-                    UUID: {last_snapshot_list[0]["version_uuid"]}
-                    name: {last_snapshot_list[0]["name"]}
-                    Create time: {last_snapshot_list[0]["ct_human"]}''')
-    elif len(last_snapshot_list) == 1:
-      log.info(f'''Relevant snapshot is the last snapshot in the volume:
-                {last_snapshot_list[0]["name"]}
-                -- No snapshots to optimize the volume!
-                ''')
-      quit()
-    else:
-      log.error(f'''\nRelevant snapshot for restoration is not found. Exiting.''')
-      quit()
-
-    if args.skip_src_validation:
-      log.warning("!! Skipping Source volume snapshots validation as requested...")
-      
-      
-      
-    else: # if we don't skip source validation
-      source_volume_uuid = get_volume_uuid(args.source_vserver, args.source_volume, args.source_cluster)
-      if source_volume_uuid == None:
-        log.error('No source volume found on source SVM. Exiting.')
-        quit()
-      source_prefix_snaps = get_prefix_snapshots_list(SNAPPREFIX, args.source_volume, source_volume_uuid, args.source_cluster)
-      snap_src_tgt_diff = set(target_prefix_snaps)^set(source_prefix_snaps)    
-      if len(snap_src_tgt_diff) > 0:
-        log.error(f'''ATTENTION:
-          Affected snapshots on source and destination are not the same. 
-          Missing either on source or dest snapshots: 
-          {snap_src_tgt_diff}
-          Exiting.''')
-        #quit()
-
-      log.info(f'''Validating snapshot on source... {args.source_cluster} ''')
-      is_snapshot_on_source = find_snapshot_by_uuid(source_volume_uuid, last_snapshot_list[0]["version_uuid"], args.source_cluster) 
-
-      if (is_snapshot_on_source != None) and (is_snapshot_on_source == last_snapshot_list[0]["version_uuid"]):
-        log.info(f'''
-          Relevant young snapshot exists on source cluster {args.source_cluster}
-          Volume can be restored to the next avaiable snapshot: {last_snapshot_list[1]["name"]}
-          ''')
-      else: 
-        log.error(f'''Relevant snapshot {last_snapshot_list[0]["name"]} cannot be validated on source cluster {args.source_cluster}. Exiting.''')
-        quit()
-
-  print("\nPre-execution summary:\n", print_summary_pre())
-
-  if args.debug:
-    # print all snapshots on target volume on target cluster
-    log.debug(f''' *** DEBUG: Listing all snapshots 
-               Target cluster: {args.cluster} 
-               Volume:         {args.volume}''')
-    list_all_snapshots(args.volume, volume_uuid, args.cluster)
-
-    if args.source_volume and args.source_cluster and args.source_vserver:
-      # print all snapshots on source volume on source cluster
-      log.debug(f''' *** DEBUG: Listing all snapshots
-                 Source cluster: {args.source_cluster} 
-                 Volume:         {args.source_volume}''')
-      list_all_snapshots(args.source_volume, source_volume_uuid, args.source_cluster)
   
+  volume_uuid = get_volume_uuid(args.vserver, args.volume, args.cluster)
+  if volume_uuid != None:
+    log.info(f'''++ Found volume {args.volume} UUID = {volume_uuid} 
+                      on cluster {args.cluster}''')
 
-  # if execution is not dry-run
-  if not args.dryrun:
-    # we need console confirmation
-    if confirm_restore(last_snapshot_list[1]["name"], last_snapshot_list[1]["version_uuid"]):
-      log.info("Shit gets real...")
-      # executing restore
-      vol_restore = volume_restore_by_uuid(args.volume, volume_uuid, last_snapshot_list[1]["uuid"], last_snapshot_list[1]["name"], args.vserver, args.cluster, False)
-      if vol_restore:
-        log.info(f'''Volume was restored successfully. \n New snapshot list:''')
-        list_all_snapshots(args.volume, volume_uuid, args.cluster)
-        
-        ''' not implemented
-        log.info(f"Setting volume guarantee to none... ")
-        if args.guarantee:
-          set_volume_guarantee(args.volume, volume_uuid, args.cluster, args.guarantee)
-        '''
-        
-    # restore is not confirmed
-    else: 
-      log.info(f'''Volume restore is cancelled. Exiting. ''')
-      quit()
-  # dry-run exec
+  target_prefix_snaps = get_prefix_snapshots_list(SNAPPREFIX, args.volume, volume_uuid, args.cluster)
+  
+  if volume_uuid == None:
+    log.error('No target volume found on SVM. Exiting.')
+    quit()
+
+  if get_volume_type(args.volume, volume_uuid, args.cluster).lower() != "rw":
+    log.error(f'''\n-- Volume {args.volume} type is not RW. Restore is not possible.
+      To proceed volume type must be RW (Snapmirror destination?)''')
+    quit()
+  
+  log.setLevel('DEBUG')
+  # print all snapshots on target volume on target cluster
+  list_all_snapshots(args.volume, volume_uuid, args.cluster)
+  log.setLevel('INFO')
+
+  # identify the last snapshot to restore to
+  last_snapshot_list, snapshot_found = find_last_snap(SNAPPREFIX, volume_uuid, args.cluster)
+
+  # if snapshot for restore found on target
+  if len(last_snapshot_list) > 1 and snapshot_found:
+    log.info(f'''The youngest relevant snapshot is found: 
+                  UUID: {last_snapshot_list[0]["version_uuid"]}
+                  name: {last_snapshot_list[0]["name"]}
+                  Create time: {last_snapshot_list[0]["ct_human"]}''')
+  elif len(last_snapshot_list) == 1:
+    log.info(f'''Relevant snapshot is the last snapshot in the volume:
+              {last_snapshot_list[0]["name"]}
+              -- No snapshots to optimize the volume!
+              ''')
+    quit()
   else:
-    log.info("Executing dry-run...")
-    vol_restore = volume_restore_by_uuid(args.volume, volume_uuid, last_snapshot_list[1]["uuid"], last_snapshot_list[1]["name"], args.vserver, args.cluster, True)
-    if vol_restore:
-      log.info(f'''++ Dry-run did not detect any issues''')
+    log.error(f'\nRelevant snapshot for restoration is not found. Exiting.')
+    quit()
+
+  if args.skip_src_validation:
+    log.warning("!! Skipping Source volume snapshots validation as requested...")
+    
+  else: # if we don't skip source validation
+    source_volume_uuid = get_volume_uuid(args.source_vserver, args.source_volume, args.source_cluster)
+    if source_volume_uuid != None:
+      log.info(f'''++ Found volume {args.source_volume} UUID = {source_volume_uuid} 
+                      on cluster {args.source_cluster}''')
+    else:
+      quit()
+    source_prefix_snaps = get_prefix_snapshots_list(SNAPPREFIX, args.source_volume, source_volume_uuid, args.source_cluster)
+    snap_src_tgt_diff = set(target_prefix_snaps)^set(source_prefix_snaps)    
+    if len(snap_src_tgt_diff) > 0:
+      log.error(f'''ATTENTION:
+        Affected snapshots on source and destination are not the same. 
+        Missing either on source or dest snapshots: 
+        {snap_src_tgt_diff}
+        Exiting.''')
+      #quit()
+
+    log.info(f'Validating snapshot on source... {args.source_cluster}')
+    is_snapshot_on_source = find_snapshot_by_uuid(source_volume_uuid, last_snapshot_list[0]["version_uuid"], args.source_cluster) 
+
+    if (is_snapshot_on_source != None) and (is_snapshot_on_source == last_snapshot_list[0]["version_uuid"]):
+      log.info(f'''
+        Relevant young snapshot exists on source cluster {args.source_cluster}
+        Volume can be restored to the next avaiable snapshot: {last_snapshot_list[1]["name"]}
+        ''')
     else: 
-      log.error(f'''-- Dry-run has failed''')
+      log.error(f'Relevant snapshot {last_snapshot_list[0]["name"]} cannot be validated on source cluster {args.source_cluster}. Exiting.')
+      quit()
+
+print("\nPre-execution summary:\n", print_summary_pre())
+
+log.setLevel('DEBUG')
+# print all snapshots on target volume on target cluster
+log.debug(f''' *** DEBUG: Listing all snapshots 
+           Target cluster: {args.cluster} 
+           Volume:         {args.volume}''')
+list_all_snapshots(args.volume, volume_uuid, args.cluster)
+log.setLevel('INFO')
+
+if args.source_volume and args.source_cluster and args.source_vserver:
+  # print all snapshots on source volume on source cluster
+  log.debug(f''' *** DEBUG: Listing all snapshots
+             Source cluster: {args.source_cluster} 
+             Volume:         {args.source_volume}''')
+  list_all_snapshots(args.source_volume, source_volume_uuid, args.source_cluster)
+
+
+# if execution is not dry-run
+if not args.dryrun:
+  # we need console confirmation
+  if confirm_restore(last_snapshot_list[1]["name"], last_snapshot_list[1]["version_uuid"]):
+    log.info("Shit gets real...")
+    # executing restore
+    vol_restore = volume_restore_by_uuid(args.volume, volume_uuid, last_snapshot_list[1]["uuid"], last_snapshot_list[1]["name"], args.vserver, args.cluster, False)
+    if vol_restore:
+      log.info(f'Volume was restored successfully. \n New snapshot list:')
+      list_all_snapshots(args.volume, volume_uuid, args.cluster)
+      
+      ''' not implemented
+      log.info(f"Setting volume guarantee to none... ")
+      if args.guarantee:
+        set_volume_guarantee(args.volume, volume_uuid, args.cluster, args.guarantee)
+      '''
+      
+  # restore is not confirmed
+  else: 
+    log.info(f'Volume restore is cancelled by operator. Exiting. ')
+    quit()
+# dry-run exec
+else:
+  log.info("Executing dry-run...")
+  vol_restore = volume_restore_by_uuid(args.volume, volume_uuid, last_snapshot_list[1]["uuid"], last_snapshot_list[1]["name"], args.vserver, args.cluster, True)
+  if vol_restore:
+    log.info(f'++ Dry-run did not detect any issues')
+  else: 
+    log.error(f'-- Dry-run has failed')
 

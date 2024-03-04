@@ -59,12 +59,12 @@ def volume_restore_by_uuid(vol_name, vol_uuid, snap_insta_uuid, snap_name, vserv
   vol = Volume()
 
   if not dryrun:
-    log.info(f'''\n\n+ Restoring volume {vol_name} 
+    logc.info(f'''\n\n+ Restoring volume {vol_name} 
                 on vserver  {vserver} 
                 on cluster  {cluster} 
                 to snapshot {snap_name} (next after the youngest)''')
   else:
-    log.info(f'''\n\n *** DRY-RUN: Restoring volume {vol_name} 
+    logc.info(f'''\n\n *** DRY-RUN: Restoring volume {vol_name} 
                           on vserver {vserver} 
                           on cluster {cluster} 
                           to snapshot {snap_name} (next after the youngest) - only data validation execution''')
@@ -78,7 +78,7 @@ def volume_restore_by_uuid(vol_name, vol_uuid, snap_insta_uuid, snap_name, vserv
 def get_volume_uuid(vserver_name, volume_name, cluster: str):
     """List Volumes in a SVM """
     try:
-      log.info(f'''+ Looking up volume {volume_name} on vserver {vserver_name} on cluster {cluster} ''')
+      logc.info(f'''+ Looking up volume {volume_name} on vserver {vserver_name} on cluster {cluster} ''')
       with HostConnection(cluster, args.username, args.password, verify=False):
         for vol in Volume.get_collection(**{"svm.name": vserver_name, "name": volume_name}):
             vol.get(fields="svm,uuid")
@@ -97,7 +97,7 @@ def find_last_snap(prefix, volume_uuid, cluster: str):
     try:
       config.CONNECTION = HostConnection(cluster, args.username, args.password, verify=False)
       with config.CONNECTION:
-        log.info(f'Searching relevant snapshots on {config.CONNECTION.origin}')
+        logc.info(f'Searching relevant snapshots on {config.CONNECTION.origin}')
         snapshots = Snapshot()
         for snap in snapshots.get_collection(volume_uuid, fields="create_time,version_uuid,name,volume,svm", order_by="create_time"):
           if regex.match(snap.name):
@@ -132,11 +132,15 @@ def list_all_snapshots(volume_name, volume_uuid, cluster: str):
       config.CONNECTION = HostConnection(cluster, args.username, args.password, verify=False)
       with config.CONNECTION:
         snapshots = Snapshot()
-        log.info(f'Listing all snapshots on cluster {config.CONNECTION.origin} in volume {volume_name}:')
-        file_handler.setFormatter(short_formatter)
-        stdout_handler.setFormatter(short_formatter)
-        for snap in snapshots.get_collection(volume_uuid, fields="create_time,version_uuid,name,volume,svm", order_by="create_time"):
-          log.info(f'{snap.version_uuid},  {snap.name},  {snap.create_time}')
+
+        if args.verbose:
+          logc.info(f'Listing all snapshots on cluster {config.CONNECTION.origin} in volume {volume_name}:')
+          for snap in snapshots.get_collection(volume_uuid, fields="create_time,version_uuid,name,volume,svm", order_by="create_time"): 
+            logc.info(f'{snap.version_uuid},  {snap.name},  {snap.create_time}')
+        else:
+          logging.info(f'Listing all snapshots on cluster {config.CONNECTION.origin} in volume {volume_name}:')
+          for snap in snapshots.get_collection(volume_uuid, fields="create_time,version_uuid,name,volume,svm", order_by="create_time"):
+            logging.info(f'{snap.version_uuid},  {snap.name},  {snap.create_time}')
         file_handler.setFormatter(full_formatter)
         stdout_handler.setFormatter(full_formatter)
 
@@ -245,117 +249,113 @@ if __name__ == "__main__":
   
   args = parse_args()
   today = datetime.today()
-  logdate = today.strftime("%d-%m-%Y")
+  if args.debug:
+    logging.basicConfig(level=logging.DEBUG, 
+      format="[%(asctime)s] [%(levelname)5s] %(message)s", 
+      filename="vol_snap_optimize_" + today.strftime("%d-%m-%Y") + ".log"
+      )
+  else:
+    logging.basicConfig(level=logging.INFO,
+      format="[%(asctime)s] [%(levelname)5s] %(message)s",
+      filename="vol_snap_optimize_" + today.strftime("%d-%m-%Y") + ".log")
+
   short_formatter = logging.Formatter("%(asctime)s - %(message)s")
   full_formatter = logging.Formatter("[%(asctime)s] [%(levelname)5s] [%(module)s:%(lineno)s] %(message)s")
-  file_handler = logging.FileHandler("vol_snap_optimize_" + logdate + ".log")
+  
+  file_handler = logging.FileHandler("vol_snap_optimize_" + today.strftime("%d-%m-%Y") + ".log")
   stdout_handler = logging.StreamHandler(sys.stdout)
-  log_handlers = [stdout_handler, file_handler]
-  #log.FileHandler = file_handler.setFormatter(full_formatter)
+  
+  stdout_handler.setLevel('INFO')
+  file_handler.setLevel('DEBUG')
+  stdout_handler.setFormatter(full_formatter)
+  file_handler.setFormatter(full_formatter)
+  
 
-
-  '''if args.debug:
-          logging.basicConfig(level=logging.DEBUG, format="[%(asctime)s] [%(levelname)5s] [%(module)s:%(lineno)s] %(message)s", handlers=[
-              logging.FileHandler("vol_snap_optimize_" + logdate + ".log"),
-              logging.StreamHandler()
-          ])
-        else: 
-          logging.basicConfig(level=logging.INFO, format="[%(asctime)s] [%(levelname)5s] [%(module)s:%(lineno)s] %(message)s", handlers=[
-              logging.FileHandler("vol_snap_optimize_" + logdate + ".log"),
-              logging.StreamHandler()
-          ])'''
-  if args.debug:
-    logging.basicConfig(level=logging.DEBUG, handlers=log_handlers)
-    file_handler.setFormatter(full_formatter)
-    stdout_handler.setFormatter(full_formatter)
-  else: 
-    logging.basicConfig(level=logging.INFO, handlers=log_handlers)
-    file_handler.setFormatter(full_formatter)
-    stdout_handler.setFormatter(full_formatter)
-  log = logging.getLogger('snapshots')
+  logd = logging.getLogger('snapsDebug')
+  logc = logging.getLogger('snapsInfo')
+  logc.addHandler(stdout_handler)
+  logd.addHandler(file_handler)
+  
   
   volume_uuid = get_volume_uuid(args.vserver, args.volume, args.cluster)
   if volume_uuid != None:
-    log.info(f'''++ Found volume {args.volume} UUID = {volume_uuid} 
+    logc.info(f'''++ Found volume {args.volume} UUID = {volume_uuid} 
                       on cluster {args.cluster}''')
   else:
-    log.error('No target volume found on SVM. Exiting.')
+    logc.error('No target volume found on SVM. Exiting.')
     quit()
 
   target_prefix_snaps = get_prefix_snapshots_list(SNAPPREFIX, args.volume, volume_uuid, args.cluster)
   
   if get_volume_type(args.volume, volume_uuid, args.cluster).lower() != "rw":
-    log.error(f'''\n-- Volume {args.volume} type is not RW. Restore is not possible.
+    logc.error(f'''\n-- Volume {args.volume} type is not RW. Restore is not possible.
       To proceed volume type must be RW (Snapmirror destination?)''')
     quit()
   
-  log.setLevel('DEBUG')
   # print all snapshots on target volume on target cluster
-  list_all_snapshots(args.volume, volume_uuid, args.cluster)
-  log.setLevel('INFO')
+  #list_all_snapshots(args.volume, volume_uuid, args.cluster)
 
   # identify the last snapshot to restore to
   last_snapshot_list, snapshot_found = find_last_snap(SNAPPREFIX, volume_uuid, args.cluster)
 
   # if snapshot for restore found on target
   if len(last_snapshot_list) > 1 and snapshot_found:
-    log.info(f'''The youngest relevant snapshot is found: 
+    logc.info(f'''The youngest relevant snapshot is found: 
                   UUID: {last_snapshot_list[0]["version_uuid"]}
                   name: {last_snapshot_list[0]["name"]}
                   Create time: {last_snapshot_list[0]["ct_human"]}''')
   elif len(last_snapshot_list) <= 1:
-    log.info(f'''Relevant snapshot is the last snapshot in the volume:
+    logc.info(f'''Relevant snapshot is the last snapshot in the volume:
               {last_snapshot_list[0]["name"]}
               -- No snapshots to optimize the volume!
               ''')
     quit()
   else:
-    log.error(f'\nRelevant snapshot for restoration is not found. Exiting.')
+    logc.error(f'\nRelevant snapshot for restoration is not found. Exiting.')
     quit()
 
   if args.skip_src_validation:
-    log.warning("!! Skipping Source volume snapshots validation as requested...")
+    logc.warning("!! Skipping Source volume snapshots validation as requested...")
     
   else: # if we don't skip source validation
     source_volume_uuid = get_volume_uuid(args.source_vserver, args.source_volume, args.source_cluster)
     if source_volume_uuid != None:
-      log.info(f'''++ Found volume {args.source_volume} UUID = {source_volume_uuid} 
+      logc.info(f'''++ Found volume {args.source_volume} UUID = {source_volume_uuid} 
                       on cluster {args.source_cluster}''')
     else:
       quit()
     source_prefix_snaps = get_prefix_snapshots_list(SNAPPREFIX, args.source_volume, source_volume_uuid, args.source_cluster)
     snap_src_tgt_diff = set(target_prefix_snaps)^set(source_prefix_snaps)    
     if len(snap_src_tgt_diff) > 0:
-      log.error(f'''ATTENTION:
+      logc.error(f'''ATTENTION:
         Affected snapshots on source and destination are not the same. 
         Missing either on source or dest snapshots: 
         {snap_src_tgt_diff}
         Exiting.''')
       #quit()
 
-    log.info(f'Validating snapshot on source... {args.source_cluster}')
+    logc.info(f'Validating snapshot on source... {args.source_cluster}')
     is_snapshot_on_source = find_snapshot_by_uuid(source_volume_uuid, last_snapshot_list[0]["version_uuid"], args.source_cluster) 
 
     if (is_snapshot_on_source != None) and (is_snapshot_on_source == last_snapshot_list[0]["version_uuid"]):
-      log.info(f'''
+      logc.info(f'''
         Relevant young snapshot exists on source cluster {args.source_cluster}
         Volume can be restored to the next avaiable snapshot: {last_snapshot_list[1]["name"]}
         ''')
     else: 
-      log.error(f'Relevant snapshot {last_snapshot_list[0]["name"]} cannot be validated on source cluster {args.source_cluster}. Exiting.')
+      logc.error(f'Relevant snapshot {last_snapshot_list[0]["name"]} cannot be validated on source cluster {args.source_cluster}. Exiting.')
       quit()
 
 print("\nPre-execution summary:\n", print_summary_pre())
 
-log.setLevel('DEBUG')
 # print all snapshots on target volume on target cluster
-print(f''' *** DEBUG: Listing all snapshots 
+if args.verbose:
+  print(f''' *** DEBUG: Listing all snapshots 
            Target cluster: {args.cluster} 
            Volume:         {args.volume}''')
-list_all_snapshots(args.volume, volume_uuid, args.cluster)
-log.setLevel('INFO')
+  list_all_snapshots(args.volume, volume_uuid, args.cluster)
 
-if args.source_volume and args.source_cluster and args.source_vserver:
+if args.source_volume and args.source_cluster and args.source_vserver and args.verbose:
   # print all snapshots on source volume on source cluster
   print(f''' *** DEBUG: Listing all snapshots
              Source cluster: {args.source_cluster} 
@@ -367,23 +367,23 @@ if args.source_volume and args.source_cluster and args.source_vserver:
 if not args.dryrun:
   # we need console confirmation
   if confirm_restore(last_snapshot_list[1]["name"], last_snapshot_list[1]["version_uuid"]):
-    log.info("Shit gets real...")
+    logc.info("Shit gets real...")
     # executing restore
     vol_restore = volume_restore_by_uuid(args.volume, volume_uuid, last_snapshot_list[1]["uuid"], last_snapshot_list[1]["name"], args.vserver, args.cluster, False)
     if vol_restore:
-      log.info(f'Volume was restored successfully. \n New snapshot list:')
+      logc.info(f'Volume was restored successfully. \n New snapshot list:')
       list_all_snapshots(args.volume, volume_uuid, args.cluster)
       
   # restore is not confirmed
   else: 
-    log.info(f'Volume restore is cancelled by operator. Exiting. ')
+    logc.info(f'Volume restore is cancelled by operator. Exiting. ')
     quit()
 # dry-run exec
 else:
-  log.info("Executing dry-run...")
+  logc.info("Executing dry-run...")
   vol_restore = volume_restore_by_uuid(args.volume, volume_uuid, last_snapshot_list[1]["uuid"], last_snapshot_list[1]["name"], args.vserver, args.cluster, True)
   if vol_restore:
-    log.info(f'++ Dry-run did not detect any issues')
+    logc.info(f'++ Dry-run did not detect any issues')
   else: 
-    log.error(f'-- Dry-run has failed')
+    logc.error(f'-- Dry-run has failed')
 

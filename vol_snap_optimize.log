@@ -1,0 +1,62 @@
+[2024-03-04 15:31:50,379] [ INFO] [vol_snap_optimize:81] + Looking up volume unlucky_volume on vserver svm_alexeym40 on cluster trinidad.muccbc.hq.netapp.com 
+[2024-03-04 15:31:50,379] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:31:50,379] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:31:50,641] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes?svm.name=svm_alexeym40&name=unlucky_volume HTTP/1.1" 200 219
+[2024-03-04 15:31:50,725] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/bd5ec07e-d1c2-11ee-b48a-d039ea087acd?fields=svm%2Cuuid HTTP/1.1" 200 193
+[2024-03-04 15:31:50,725] [ INFO] [vol_snap_optimize:250] ++ Found volume unlucky_volume UUID = bd5ec07e-d1c2-11ee-b48a-d039ea087acd 
+                      on cluster trinidad.muccbc.hq.netapp.com
+[2024-03-04 15:31:50,740] [DEBUG] [resource:364] Key values provided for the API endpoint: bd5ec07e-d1c2-11ee-b48a-d039ea087acd
+[2024-03-04 15:31:50,741] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:31:50,741] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:31:50,945] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/bd5ec07e-d1c2-11ee-b48a-d039ea087acd/snapshots?fields=create_time%2Cversion_uuid%2Cname%2Cvolume%2Csvm&order_by=create_time HTTP/1.1" 200 None
+[2024-03-04 15:31:51,041] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:31:51,041] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:31:51,240] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/bd5ec07e-d1c2-11ee-b48a-d039ea087acd?fields=type HTTP/1.1" 200 151
+[2024-03-04 15:31:51,259] [ INFO] [vol_snap_optimize:135] All snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 15:31:51,259] [DEBUG] [resource:364] Key values provided for the API endpoint: bd5ec07e-d1c2-11ee-b48a-d039ea087acd
+[2024-03-04 15:31:51,259] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:31:51,259] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:31:51,458] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/bd5ec07e-d1c2-11ee-b48a-d039ea087acd/snapshots?fields=create_time%2Cversion_uuid%2Cname%2Cvolume%2Csvm&order_by=create_time HTTP/1.1" 200 None
+[2024-03-04 15:31:51,542] [ INFO] [vol_snap_optimize:100] Searching relevant snapshots on https://trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:31:51,542] [DEBUG] [resource:364] Key values provided for the API endpoint: bd5ec07e-d1c2-11ee-b48a-d039ea087acd
+[2024-03-04 15:31:51,542] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:31:51,542] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:31:51,747] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/bd5ec07e-d1c2-11ee-b48a-d039ea087acd/snapshots?fields=create_time%2Cversion_uuid%2Cname%2Cvolume%2Csvm&order_by=create_time HTTP/1.1" 200 None
+[2024-03-04 15:31:51,825] [ INFO] [vol_snap_optimize:273] The youngest relevant snapshot is found: 
+                  UUID: e387328e-c28c-4e8d-ad4f-c6831aa5854e
+                  name: LH_6
+                  Create time: 2024-02-26 12:23:46+01:00
+[2024-03-04 15:31:51,825] [ INFO] [vol_snap_optimize:81] + Looking up volume lucky_volume on vserver svm_alexeym20 on cluster jamaica.muccbc.hq.netapp.com 
+[2024-03-04 15:31:51,825] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:31:51,825] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): jamaica.muccbc.hq.netapp.com:443
+[2024-03-04 15:31:52,092] [DEBUG] [connectionpool:456] https://jamaica.muccbc.hq.netapp.com:443 "GET /api/storage/volumes?svm.name=svm_alexeym20&name=lucky_volume HTTP/1.1" 200 218
+[2024-03-04 15:31:52,720] [DEBUG] [connectionpool:456] https://jamaica.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/520c5d00-9a24-11ea-9959-00a098d76592?fields=svm%2Cuuid HTTP/1.1" 200 200
+[2024-03-04 15:31:52,720] [ INFO] [vol_snap_optimize:293] ++ Found volume lucky_volume UUID = 520c5d00-9a24-11ea-9959-00a098d76592 
+                      on cluster jamaica.muccbc.hq.netapp.com
+[2024-03-04 15:31:52,720] [DEBUG] [resource:364] Key values provided for the API endpoint: 520c5d00-9a24-11ea-9959-00a098d76592
+[2024-03-04 15:31:52,720] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:31:52,720] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): jamaica.muccbc.hq.netapp.com:443
+[2024-03-04 15:31:52,924] [DEBUG] [connectionpool:456] https://jamaica.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/520c5d00-9a24-11ea-9959-00a098d76592/snapshots?fields=create_time%2Cversion_uuid%2Cname%2Cvolume%2Csvm&order_by=create_time HTTP/1.1" 200 None
+[2024-03-04 15:31:53,019] [ INFO] [vol_snap_optimize:307] Validating snapshot on source... jamaica.muccbc.hq.netapp.com
+[2024-03-04 15:31:53,019] [DEBUG] [resource:364] Key values provided for the API endpoint: 520c5d00-9a24-11ea-9959-00a098d76592
+[2024-03-04 15:31:53,019] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:31:53,019] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): jamaica.muccbc.hq.netapp.com:443
+[2024-03-04 15:31:53,192] [DEBUG] [connectionpool:456] https://jamaica.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/520c5d00-9a24-11ea-9959-00a098d76592/snapshots/e387328e-c28c-4e8d-ad4f-c6831aa5854e HTTP/1.1" 200 331
+[2024-03-04 15:31:53,192] [ INFO] [vol_snap_optimize:311] 
+        Relevant young snapshot exists on source cluster jamaica.muccbc.hq.netapp.com
+        Volume can be restored to the next avaiable snapshot: daily.2024-02-27_0010
+        
+[2024-03-04 15:31:53,192] [DEBUG] [vol_snap_optimize:323]  *** DEBUG: Listing all snapshots 
+           Target cluster: trinidad.muccbc.hq.netapp.com 
+           Volume:         unlucky_volume
+[2024-03-04 15:31:53,192] [ INFO] [vol_snap_optimize:135] All snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 15:31:53,192] [DEBUG] [resource:364] Key values provided for the API endpoint: bd5ec07e-d1c2-11ee-b48a-d039ea087acd
+[2024-03-04 15:31:53,192] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:31:53,192] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:31:53,395] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/bd5ec07e-d1c2-11ee-b48a-d039ea087acd/snapshots?fields=create_time%2Cversion_uuid%2Cname%2Cvolume%2Csvm&order_by=create_time HTTP/1.1" 200 None
+[2024-03-04 15:31:53,474] [ INFO] [vol_snap_optimize:135] All snapshots on cluster https://jamaica.muccbc.hq.netapp.com:443 in volume lucky_volume:
+[2024-03-04 15:31:53,474] [DEBUG] [resource:364] Key values provided for the API endpoint: 520c5d00-9a24-11ea-9959-00a098d76592
+[2024-03-04 15:31:53,474] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:31:53,474] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): jamaica.muccbc.hq.netapp.com:443
+[2024-03-04 15:31:53,662] [DEBUG] [connectionpool:456] https://jamaica.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/520c5d00-9a24-11ea-9959-00a098d76592/snapshots?fields=create_time%2Cversion_uuid%2Cname%2Cvolume%2Csvm&order_by=create_time HTTP/1.1" 200 None
+[2024-03-04 15:31:57,485] [ INFO] [vol_snap_optimize:350] Volume restore is cancelled by operator. Exiting. 

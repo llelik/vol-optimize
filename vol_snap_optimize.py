@@ -81,7 +81,7 @@ def get_volume_uuid(vserver_name, volume_name, cluster: str):
       log.info(f'''+ Looking up volume {volume_name} on vserver {vserver_name} on cluster {cluster} ''')
       with HostConnection(cluster, args.username, args.password, verify=False):
         for vol in Volume.get_collection(**{"svm.name": vserver_name, "name": volume_name}):
-            vol.get()
+            vol.get(fields="svm,uuid")
             return vol.uuid
     except NetAppRestError as err:
         log.error(f'Volume not found: {err}')
@@ -132,9 +132,14 @@ def list_all_snapshots(volume_name, volume_uuid, cluster: str):
       config.CONNECTION = HostConnection(cluster, args.username, args.password, verify=False)
       with config.CONNECTION:
         snapshots = Snapshot()
-        log.info(f'All snapshots on cluster {config.CONNECTION.origin} in volume {volume_name}:')
+        log.info(f'Listing all snapshots on cluster {config.CONNECTION.origin} in volume {volume_name}:')
+        file_handler.setFormatter(short_formatter)
+        stdout_handler.setFormatter(short_formatter)
         for snap in snapshots.get_collection(volume_uuid, fields="create_time,version_uuid,name,volume,svm", order_by="create_time"):
-          print(f'{snap.version_uuid},  {snap.name},  {snap.create_time}')
+          log.info(f'{snap.version_uuid},  {snap.name},  {snap.create_time}')
+        file_handler.setFormatter(full_formatter)
+        stdout_handler.setFormatter(full_formatter)
+
     except NetAppRestError as err:
         log.error(f'Snapshot not found: {err}')
         return None
@@ -214,7 +219,7 @@ def parse_args() -> argparse.Namespace:
         "-debug", "--debug", dest="debug", action='store_true', default=False, required=False, help="Debug output enabled"
     )
     parser.add_argument(
-        "--verbose", dest="vorbose", action='store_true', default=False, required=False, help="More verbose"
+        "--verbose", dest="verbose", action='store_true', default=False, required=False, help="More verbose"
     )
     parser.add_argument(
         "-dryrun", "--dryrun", dest="dryrun", action='store_true', default=False, required=False, help="Dry-run, no restore, only finding right snapshots and validating details"
@@ -239,23 +244,46 @@ def parse_args() -> argparse.Namespace:
 if __name__ == "__main__":
   
   args = parse_args()
+  today = datetime.today()
+  logdate = today.strftime("%d-%m-%Y")
+  short_formatter = logging.Formatter("%(asctime)s - %(message)s")
+  full_formatter = logging.Formatter("[%(asctime)s] [%(levelname)5s] [%(module)s:%(lineno)s] %(message)s")
+  file_handler = logging.FileHandler("vol_snap_optimize_" + logdate + ".log")
+  stdout_handler = logging.StreamHandler(sys.stdout)
+  log_handlers = [stdout_handler, file_handler]
+  #log.FileHandler = file_handler.setFormatter(full_formatter)
+
+
+  '''if args.debug:
+          logging.basicConfig(level=logging.DEBUG, format="[%(asctime)s] [%(levelname)5s] [%(module)s:%(lineno)s] %(message)s", handlers=[
+              logging.FileHandler("vol_snap_optimize_" + logdate + ".log"),
+              logging.StreamHandler()
+          ])
+        else: 
+          logging.basicConfig(level=logging.INFO, format="[%(asctime)s] [%(levelname)5s] [%(module)s:%(lineno)s] %(message)s", handlers=[
+              logging.FileHandler("vol_snap_optimize_" + logdate + ".log"),
+              logging.StreamHandler()
+          ])'''
   if args.debug:
-    logging.basicConfig(level=logging.DEBUG, format="[%(asctime)s] [%(levelname)5s] [%(module)s:%(lineno)s] %(message)s")
+    logging.basicConfig(level=logging.DEBUG, handlers=log_handlers)
+    file_handler.setFormatter(full_formatter)
+    stdout_handler.setFormatter(full_formatter)
   else: 
-    logging.basicConfig(level=logging.INFO, format="[%(asctime)s] [%(levelname)5s] %(message)s")
+    logging.basicConfig(level=logging.INFO, handlers=log_handlers)
+    file_handler.setFormatter(full_formatter)
+    stdout_handler.setFormatter(full_formatter)
   log = logging.getLogger('snapshots')
   
   volume_uuid = get_volume_uuid(args.vserver, args.volume, args.cluster)
   if volume_uuid != None:
     log.info(f'''++ Found volume {args.volume} UUID = {volume_uuid} 
                       on cluster {args.cluster}''')
-
-  target_prefix_snaps = get_prefix_snapshots_list(SNAPPREFIX, args.volume, volume_uuid, args.cluster)
-  
-  if volume_uuid == None:
+  else:
     log.error('No target volume found on SVM. Exiting.')
     quit()
 
+  target_prefix_snaps = get_prefix_snapshots_list(SNAPPREFIX, args.volume, volume_uuid, args.cluster)
+  
   if get_volume_type(args.volume, volume_uuid, args.cluster).lower() != "rw":
     log.error(f'''\n-- Volume {args.volume} type is not RW. Restore is not possible.
       To proceed volume type must be RW (Snapmirror destination?)''')
@@ -275,7 +303,7 @@ if __name__ == "__main__":
                   UUID: {last_snapshot_list[0]["version_uuid"]}
                   name: {last_snapshot_list[0]["name"]}
                   Create time: {last_snapshot_list[0]["ct_human"]}''')
-  elif len(last_snapshot_list) == 1:
+  elif len(last_snapshot_list) <= 1:
     log.info(f'''Relevant snapshot is the last snapshot in the volume:
               {last_snapshot_list[0]["name"]}
               -- No snapshots to optimize the volume!
@@ -321,7 +349,7 @@ print("\nPre-execution summary:\n", print_summary_pre())
 
 log.setLevel('DEBUG')
 # print all snapshots on target volume on target cluster
-log.debug(f''' *** DEBUG: Listing all snapshots 
+print(f''' *** DEBUG: Listing all snapshots 
            Target cluster: {args.cluster} 
            Volume:         {args.volume}''')
 list_all_snapshots(args.volume, volume_uuid, args.cluster)
@@ -329,7 +357,7 @@ log.setLevel('INFO')
 
 if args.source_volume and args.source_cluster and args.source_vserver:
   # print all snapshots on source volume on source cluster
-  log.debug(f''' *** DEBUG: Listing all snapshots
+  print(f''' *** DEBUG: Listing all snapshots
              Source cluster: {args.source_cluster} 
              Volume:         {args.source_volume}''')
   list_all_snapshots(args.source_volume, source_volume_uuid, args.source_cluster)

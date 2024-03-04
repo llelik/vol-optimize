@@ -1,0 +1,427 @@
+[2024-03-04 15:45:17,604] [ INFO] [vol_snap_optimize:81] + Looking up volume unlucky_volume on vserver svm_alexeym40 on cluster trinidad.muccbc.hq.netapp.com 
+[2024-03-04 15:45:17,619] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:45:17,619] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:45:17,876] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes?svm.name=svm_alexeym40&name=unlucky_volume HTTP/1.1" 200 219
+[2024-03-04 15:45:17,948] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/bd5ec07e-d1c2-11ee-b48a-d039ea087acd?fields=svm%2Cuuid HTTP/1.1" 200 193
+[2024-03-04 15:45:17,948] [ INFO] [vol_snap_optimize:255] ++ Found volume unlucky_volume UUID = bd5ec07e-d1c2-11ee-b48a-d039ea087acd 
+                      on cluster trinidad.muccbc.hq.netapp.com
+[2024-03-04 15:45:17,948] [DEBUG] [resource:364] Key values provided for the API endpoint: bd5ec07e-d1c2-11ee-b48a-d039ea087acd
+[2024-03-04 15:45:17,948] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:45:17,948] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:45:18,153] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/bd5ec07e-d1c2-11ee-b48a-d039ea087acd/snapshots?fields=create_time%2Cversion_uuid%2Cname%2Cvolume%2Csvm&order_by=create_time HTTP/1.1" 200 None
+[2024-03-04 15:45:18,265] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:45:18,266] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:45:18,445] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/bd5ec07e-d1c2-11ee-b48a-d039ea087acd?fields=type HTTP/1.1" 200 151
+[2024-03-04 15:45:18,445] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 15:45:18,445] [DEBUG] [resource:364] Key values provided for the API endpoint: bd5ec07e-d1c2-11ee-b48a-d039ea087acd
+[2024-03-04 15:45:18,445] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:45:18,445] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:45:18,650] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/bd5ec07e-d1c2-11ee-b48a-d039ea087acd/snapshots?fields=create_time%2Cversion_uuid%2Cname%2Cvolume%2Csvm&order_by=create_time HTTP/1.1" 200 None
+[2024-03-04 15:45:18,760] [ INFO] [vol_snap_optimize:100] Searching relevant snapshots on https://trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:45:18,760] [DEBUG] [resource:364] Key values provided for the API endpoint: bd5ec07e-d1c2-11ee-b48a-d039ea087acd
+[2024-03-04 15:45:18,760] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:45:18,760] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:45:18,980] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/bd5ec07e-d1c2-11ee-b48a-d039ea087acd/snapshots?fields=create_time%2Cversion_uuid%2Cname%2Cvolume%2Csvm&order_by=create_time HTTP/1.1" 200 None
+[2024-03-04 15:45:19,059] [ INFO] [vol_snap_optimize:278] The youngest relevant snapshot is found: 
+                  UUID: e387328e-c28c-4e8d-ad4f-c6831aa5854e
+                  name: LH_6
+                  Create time: 2024-02-26 12:23:46+01:00
+[2024-03-04 15:45:19,059] [ INFO] [vol_snap_optimize:81] + Looking up volume lucky_volume on vserver svm_alexeym20 on cluster jamaica.muccbc.hq.netapp.com 
+[2024-03-04 15:45:19,059] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:45:19,059] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): jamaica.muccbc.hq.netapp.com:443
+[2024-03-04 15:45:19,263] [DEBUG] [connectionpool:456] https://jamaica.muccbc.hq.netapp.com:443 "GET /api/storage/volumes?svm.name=svm_alexeym20&name=lucky_volume HTTP/1.1" 200 218
+[2024-03-04 15:45:19,326] [DEBUG] [connectionpool:456] https://jamaica.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/520c5d00-9a24-11ea-9959-00a098d76592?fields=svm%2Cuuid HTTP/1.1" 200 200
+[2024-03-04 15:45:19,326] [ INFO] [vol_snap_optimize:298] ++ Found volume lucky_volume UUID = 520c5d00-9a24-11ea-9959-00a098d76592 
+                      on cluster jamaica.muccbc.hq.netapp.com
+[2024-03-04 15:45:19,326] [DEBUG] [resource:364] Key values provided for the API endpoint: 520c5d00-9a24-11ea-9959-00a098d76592
+[2024-03-04 15:45:19,326] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:45:19,326] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): jamaica.muccbc.hq.netapp.com:443
+[2024-03-04 15:45:19,514] [DEBUG] [connectionpool:456] https://jamaica.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/520c5d00-9a24-11ea-9959-00a098d76592/snapshots?fields=create_time%2Cversion_uuid%2Cname%2Cvolume%2Csvm&order_by=create_time HTTP/1.1" 200 None
+[2024-03-04 15:45:19,609] [ INFO] [vol_snap_optimize:312] Validating snapshot on source... jamaica.muccbc.hq.netapp.com
+[2024-03-04 15:45:19,609] [DEBUG] [resource:364] Key values provided for the API endpoint: 520c5d00-9a24-11ea-9959-00a098d76592
+[2024-03-04 15:45:19,609] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:45:19,609] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): jamaica.muccbc.hq.netapp.com:443
+[2024-03-04 15:45:19,781] [DEBUG] [connectionpool:456] https://jamaica.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/520c5d00-9a24-11ea-9959-00a098d76592/snapshots/e387328e-c28c-4e8d-ad4f-c6831aa5854e HTTP/1.1" 200 331
+[2024-03-04 15:45:19,781] [ INFO] [vol_snap_optimize:316] 
+        Relevant young snapshot exists on source cluster jamaica.muccbc.hq.netapp.com
+        Volume can be restored to the next avaiable snapshot: daily.2024-02-27_0010
+        
+[2024-03-04 15:45:19,781] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 15:45:19,781] [DEBUG] [resource:364] Key values provided for the API endpoint: bd5ec07e-d1c2-11ee-b48a-d039ea087acd
+[2024-03-04 15:45:19,781] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:45:19,781] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:45:19,986] [DEBUG] [connectionpool:456] https://trinidad.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/bd5ec07e-d1c2-11ee-b48a-d039ea087acd/snapshots?fields=create_time%2Cversion_uuid%2Cname%2Cvolume%2Csvm&order_by=create_time HTTP/1.1" 200 None
+[2024-03-04 15:45:20,081] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://jamaica.muccbc.hq.netapp.com:443 in volume lucky_volume:
+[2024-03-04 15:45:20,096] [DEBUG] [resource:364] Key values provided for the API endpoint: 520c5d00-9a24-11ea-9959-00a098d76592
+[2024-03-04 15:45:20,096] [DEBUG] [retry:351] Converted retries value: 5 -> Retry(total=5, connect=None, read=None, redirect=None, status=None)
+[2024-03-04 15:45:20,096] [DEBUG] [connectionpool:1001] Starting new HTTPS connection (1): jamaica.muccbc.hq.netapp.com:443
+[2024-03-04 15:45:20,284] [DEBUG] [connectionpool:456] https://jamaica.muccbc.hq.netapp.com:443 "GET /api/storage/volumes/520c5d00-9a24-11ea-9959-00a098d76592/snapshots?fields=create_time%2Cversion_uuid%2Cname%2Cvolume%2Csvm&order_by=create_time HTTP/1.1" 200 None
+[2024-03-04 15:45:22,168] [ INFO] [vol_snap_optimize:355] Volume restore is cancelled by operator. Exiting. 
+
+
+
+
+
++++++++++++++++++++++++++++++++
+
+
+
+
+
+
+
+
+
+[2024-03-04 15:48:21,769] [ INFO] + Looking up volume unlucky_volume on vserver svm_alexeym40 on cluster trinidad.muccbc.hq.netapp.com 
+[2024-03-04 15:48:22,414] [ INFO] ++ Found volume unlucky_volume UUID = bd5ec07e-d1c2-11ee-b48a-d039ea087acd 
+                      on cluster trinidad.muccbc.hq.netapp.com
+[2024-03-04 15:48:22,899] [ INFO] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 15:48:23,182] [ INFO] Searching relevant snapshots on https://trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:48:23,465] [ INFO] The youngest relevant snapshot is found: 
+                  UUID: e387328e-c28c-4e8d-ad4f-c6831aa5854e
+                  name: LH_6
+                  Create time: 2024-02-26 12:23:46+01:00
+[2024-03-04 15:48:23,465] [ INFO] + Looking up volume lucky_volume on vserver svm_alexeym20 on cluster jamaica.muccbc.hq.netapp.com 
+[2024-03-04 15:48:23,748] [ INFO] ++ Found volume lucky_volume UUID = 520c5d00-9a24-11ea-9959-00a098d76592 
+                      on cluster jamaica.muccbc.hq.netapp.com
+[2024-03-04 15:48:24,030] [ INFO] Validating snapshot on source... jamaica.muccbc.hq.netapp.com
+[2024-03-04 15:48:24,235] [ INFO] 
+        Relevant young snapshot exists on source cluster jamaica.muccbc.hq.netapp.com
+        Volume can be restored to the next avaiable snapshot: daily.2024-02-27_0010
+        
+[2024-03-04 15:48:24,235] [ INFO] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 15:48:24,518] [ INFO] Listing all snapshots on cluster https://jamaica.muccbc.hq.netapp.com:443 in volume lucky_volume:
+[2024-03-04 15:48:26,953] [ INFO] Volume restore is cancelled by operator. Exiting. 
+[2024-03-04 15:49:41,177] [ INFO] [vol_snap_optimize:81] + Looking up volume unlucky_volume on vserver svm_alexeym40 on cluster trinidad.muccbc.hq.netapp.com 
+[2024-03-04 15:49:41,955] [ INFO] [vol_snap_optimize:258] ++ Found volume unlucky_volume UUID = bd5ec07e-d1c2-11ee-b48a-d039ea087acd 
+                      on cluster trinidad.muccbc.hq.netapp.com
+[2024-03-04 15:49:42,419] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 15:49:42,702] [ INFO] [vol_snap_optimize:100] Searching relevant snapshots on https://trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 15:49:43,001] [ INFO] [vol_snap_optimize:281] The youngest relevant snapshot is found: 
+                  UUID: e387328e-c28c-4e8d-ad4f-c6831aa5854e
+                  name: LH_6
+                  Create time: 2024-02-26 12:23:46+01:00
+[2024-03-04 15:49:43,001] [ INFO] [vol_snap_optimize:81] + Looking up volume lucky_volume on vserver svm_alexeym20 on cluster jamaica.muccbc.hq.netapp.com 
+[2024-03-04 15:49:43,283] [ INFO] [vol_snap_optimize:301] ++ Found volume lucky_volume UUID = 520c5d00-9a24-11ea-9959-00a098d76592 
+                      on cluster jamaica.muccbc.hq.netapp.com
+[2024-03-04 15:49:43,550] [ INFO] [vol_snap_optimize:315] Validating snapshot on source... jamaica.muccbc.hq.netapp.com
+[2024-03-04 15:49:43,723] [ INFO] [vol_snap_optimize:319] 
+        Relevant young snapshot exists on source cluster jamaica.muccbc.hq.netapp.com
+        Volume can be restored to the next avaiable snapshot: daily.2024-02-27_0010
+        
+[2024-03-04 15:49:43,723] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 15:49:44,060] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://jamaica.muccbc.hq.netapp.com:443 in volume lucky_volume:
+[2024-03-04 15:49:45,563] [ INFO] [vol_snap_optimize:358] Volume restore is cancelled by operator. Exiting. 
+[2024-03-04 15:59:49,583] [ INFO] [vol_snap_optimize:81] + Looking up volume unlucky_volume on vserver svm_alexeym40 on cluster trinidad.muccbc.hq.netapp.com 
+[2024-03-04 15:59:49,892] [ INFO] [vol_snap_optimize:260] ++ Found volume unlucky_volume UUID = bd5ec07e-d1c2-11ee-b48a-d039ea087acd 
+                      on cluster trinidad.muccbc.hq.netapp.com
+[2024-03-04 15:59:50,370] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 16:00:25,291] [ INFO] [vol_snap_optimize:81] + Looking up volume unlucky_volume on vserver svm_alexeym40 on cluster trinidad.muccbc.hq.netapp.com 
+[2024-03-04 16:00:25,601] [ INFO] [vol_snap_optimize:260] ++ Found volume unlucky_volume UUID = bd5ec07e-d1c2-11ee-b48a-d039ea087acd 
+                      on cluster trinidad.muccbc.hq.netapp.com
+[2024-03-04 16:00:26,094] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 16:09:23,080] [ INFO] [vol_snap_optimize:81] + Looking up volume unlucky_volume on vserver svm_alexeym40 on cluster trinidad.muccbc.hq.netapp.com 
+[2024-03-04 16:09:23,843] [ INFO] [vol_snap_optimize:267] ++ Found volume unlucky_volume UUID = bd5ec07e-d1c2-11ee-b48a-d039ea087acd 
+                      on cluster trinidad.muccbc.hq.netapp.com
+[2024-03-04 16:09:24,349] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 16:09:24,659] [ INFO] [vol_snap_optimize:100] Searching relevant snapshots on https://trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 16:09:24,972] [ INFO] [vol_snap_optimize:290] The youngest relevant snapshot is found: 
+                  UUID: e387328e-c28c-4e8d-ad4f-c6831aa5854e
+                  name: LH_6
+                  Create time: 2024-02-26 12:23:46+01:00
+[2024-03-04 16:09:24,972] [ INFO] [vol_snap_optimize:81] + Looking up volume lucky_volume on vserver svm_alexeym20 on cluster jamaica.muccbc.hq.netapp.com 
+[2024-03-04 16:09:25,274] [ INFO] [vol_snap_optimize:310] ++ Found volume lucky_volume UUID = 520c5d00-9a24-11ea-9959-00a098d76592 
+                      on cluster jamaica.muccbc.hq.netapp.com
+[2024-03-04 16:09:25,603] [ INFO] [vol_snap_optimize:324] Validating snapshot on source... jamaica.muccbc.hq.netapp.com
+[2024-03-04 16:09:25,802] [ INFO] [vol_snap_optimize:328] 
+        Relevant young snapshot exists on source cluster jamaica.muccbc.hq.netapp.com
+        Volume can be restored to the next avaiable snapshot: daily.2024-02-27_0010
+        
+[2024-03-04 16:09:25,805] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 16:09:26,145] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://jamaica.muccbc.hq.netapp.com:443 in volume lucky_volume:
+[2024-03-04 16:09:28,538] [ INFO] [vol_snap_optimize:367] Volume restore is cancelled by operator. Exiting. 
+[2024-03-04 16:10:04,482] [ INFO] [vol_snap_optimize:81] + Looking up volume unlucky_volume on vserver svm_alexeym40 on cluster trinidad.muccbc.hq.netapp.com 
+[2024-03-04 16:10:04,828] [ INFO] [vol_snap_optimize:267] ++ Found volume unlucky_volume UUID = bd5ec07e-d1c2-11ee-b48a-d039ea087acd 
+                      on cluster trinidad.muccbc.hq.netapp.com
+[2024-03-04 16:10:05,316] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 16:10:05,512] [DEBUG] [vol_snap_optimize:140] 5004c13c-37ec-43e6-8988-3a097b6253ea,  LH_1,  2021-02-17 19:13:20+01:00
+[2024-03-04 16:10:05,519] [DEBUG] [vol_snap_optimize:140] 1809056e-3bfa-41f7-93d6-b3ee6f818743,  LH_2,  2021-02-17 19:13:26+01:00
+[2024-03-04 16:10:05,523] [DEBUG] [vol_snap_optimize:140] 95edc8b2-7268-4210-962b-b7bc154a705a,  LH_3,  2021-02-17 19:13:31+01:00
+[2024-03-04 16:10:05,526] [DEBUG] [vol_snap_optimize:140] b8ea84ab-cae7-41b0-aea3-ad7b2388595f,  LH_4,  2021-02-17 19:13:36+01:00
+[2024-03-04 16:10:05,530] [DEBUG] [vol_snap_optimize:140] 6cdb1481-8612-4362-b331-b9bb2a3dde70,  LH_5,  2021-02-17 19:13:42+01:00
+[2024-03-04 16:10:05,533] [DEBUG] [vol_snap_optimize:140] 061c7862-e62d-4ae6-9021-5d34aa290784,  FREEZE_1,  2021-02-17 19:18:58+01:00
+[2024-03-04 16:10:05,536] [DEBUG] [vol_snap_optimize:140] 6a2413dc-5564-426b-8fa3-bc438da1c1f2,  FREEZE_2,  2021-02-17 19:19:04+01:00
+[2024-03-04 16:10:05,539] [DEBUG] [vol_snap_optimize:140] 6ad01abf-d3de-4782-b7c3-d432d1dd05db,  FREEZE_3,  2021-02-17 19:19:09+01:00
+[2024-03-04 16:10:05,543] [DEBUG] [vol_snap_optimize:140] 6a195cd9-3c52-4852-aeff-b4a41ea87964,  NONE_1,  2021-02-18 15:38:03+01:00
+[2024-03-04 16:10:05,546] [DEBUG] [vol_snap_optimize:140] d6f0294c-45af-4716-bbd4-235687eb0b96,  NONE_2,  2021-02-18 15:38:09+01:00
+[2024-03-04 16:10:05,550] [DEBUG] [vol_snap_optimize:140] dbf5e845-1cda-44bc-93ac-45a90ed72adb,  NONE_3,  2021-02-18 15:38:14+01:00
+[2024-03-04 16:10:05,553] [DEBUG] [vol_snap_optimize:140] c2ca8be4-cf18-4ba2-81e9-98064112d5e3,  5min.2023-01-11_1240,  2023-01-11 12:40:00+01:00
+[2024-03-04 16:10:05,556] [DEBUG] [vol_snap_optimize:140] ff90e613-517a-4755-bace-b7d4f2cc35fb,  5min.2023-01-11_1245,  2023-01-11 12:45:00+01:00
+[2024-03-04 16:10:05,561] [DEBUG] [vol_snap_optimize:140] 4a3cf806-4459-421a-be8d-6a5f782ec82f,  5min.2023-01-11_1250,  2023-01-11 12:50:00+01:00
+[2024-03-04 16:10:05,564] [DEBUG] [vol_snap_optimize:140] be3d7807-3f8f-4e9e-9a30-ecb8f6009335,  5min.2023-01-11_1255,  2023-01-11 12:55:00+01:00
+[2024-03-04 16:10:05,568] [DEBUG] [vol_snap_optimize:140] 5713a96f-16c4-445e-857c-3af0f90b5327,  5min.2023-01-11_1300,  2023-01-11 13:00:00+01:00
+[2024-03-04 16:10:05,571] [DEBUG] [vol_snap_optimize:140] d24d9eb5-db33-4f52-95b8-7c309f102a37,  weekly.2024-02-18_0015,  2024-02-18 00:15:00+01:00
+[2024-03-04 16:10:05,575] [DEBUG] [vol_snap_optimize:140] a4be3685-038b-4477-8f5d-6ea1157028ec,  testme.0,  2024-02-22 17:54:07+01:00
+[2024-03-04 16:10:05,579] [DEBUG] [vol_snap_optimize:140] 03a0531e-89cb-44c2-8cf3-d397149d4ff7,  LH_6.1-snap,  2024-02-22 17:54:24+01:00
+[2024-03-04 16:10:05,582] [DEBUG] [vol_snap_optimize:140] 369e9acf-32ea-4b25-82fd-76bda2b0c049,  testme.1,  2024-02-22 17:54:36+01:00
+[2024-03-04 16:10:05,586] [DEBUG] [vol_snap_optimize:140] 70e0d398-1f2c-44f4-a1ee-c67de3fe360d,  testme.2,  2024-02-22 17:54:39+01:00
+[2024-03-04 16:10:05,590] [DEBUG] [vol_snap_optimize:140] 94f11e0a-0a59-4dbf-a25d-7f1ee6ded54c,  testme.3,  2024-02-22 17:54:41+01:00
+[2024-03-04 16:10:05,594] [DEBUG] [vol_snap_optimize:140] 4ce3f959-c42a-4c9c-8b98-0344a900bdb2,  snapmirror.56c52c0d-d1c2-11ee-b48a-d039ea087acd_2147516749.2024-02-22_214719,  2024-02-22 21:47:19+01:00
+[2024-03-04 16:10:05,598] [DEBUG] [vol_snap_optimize:140] 2d7e6297-5d6a-4027-b1c3-358444b613fa,  weekly.2024-02-25_0015,  2024-02-25 00:15:02+01:00
+[2024-03-04 16:10:05,601] [DEBUG] [vol_snap_optimize:140] e387328e-c28c-4e8d-ad4f-c6831aa5854e,  LH_6,  2024-02-26 12:23:46+01:00
+[2024-03-04 16:10:05,605] [DEBUG] [vol_snap_optimize:140] d99e4cb2-e6d5-4fdb-a250-fa04bcfdc95a,  daily.2024-02-27_0010,  2024-02-27 00:10:00+01:00
+[2024-03-04 16:10:05,606] [ INFO] [vol_snap_optimize:100] Searching relevant snapshots on https://trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 16:10:05,895] [ INFO] [vol_snap_optimize:290] The youngest relevant snapshot is found: 
+                  UUID: e387328e-c28c-4e8d-ad4f-c6831aa5854e
+                  name: LH_6
+                  Create time: 2024-02-26 12:23:46+01:00
+[2024-03-04 16:10:05,895] [ INFO] [vol_snap_optimize:81] + Looking up volume lucky_volume on vserver svm_alexeym20 on cluster jamaica.muccbc.hq.netapp.com 
+[2024-03-04 16:10:06,180] [ INFO] [vol_snap_optimize:310] ++ Found volume lucky_volume UUID = 520c5d00-9a24-11ea-9959-00a098d76592 
+                      on cluster jamaica.muccbc.hq.netapp.com
+[2024-03-04 16:10:06,464] [ INFO] [vol_snap_optimize:324] Validating snapshot on source... jamaica.muccbc.hq.netapp.com
+[2024-03-04 16:10:06,655] [ INFO] [vol_snap_optimize:328] 
+        Relevant young snapshot exists on source cluster jamaica.muccbc.hq.netapp.com
+        Volume can be restored to the next avaiable snapshot: daily.2024-02-27_0010
+        
+[2024-03-04 16:10:06,658] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 16:10:06,887] [DEBUG] [vol_snap_optimize:140] 5004c13c-37ec-43e6-8988-3a097b6253ea,  LH_1,  2021-02-17 19:13:20+01:00
+[2024-03-04 16:10:06,894] [DEBUG] [vol_snap_optimize:140] 1809056e-3bfa-41f7-93d6-b3ee6f818743,  LH_2,  2021-02-17 19:13:26+01:00
+[2024-03-04 16:10:06,900] [DEBUG] [vol_snap_optimize:140] 95edc8b2-7268-4210-962b-b7bc154a705a,  LH_3,  2021-02-17 19:13:31+01:00
+[2024-03-04 16:10:06,906] [DEBUG] [vol_snap_optimize:140] b8ea84ab-cae7-41b0-aea3-ad7b2388595f,  LH_4,  2021-02-17 19:13:36+01:00
+[2024-03-04 16:10:06,910] [DEBUG] [vol_snap_optimize:140] 6cdb1481-8612-4362-b331-b9bb2a3dde70,  LH_5,  2021-02-17 19:13:42+01:00
+[2024-03-04 16:10:06,913] [DEBUG] [vol_snap_optimize:140] 061c7862-e62d-4ae6-9021-5d34aa290784,  FREEZE_1,  2021-02-17 19:18:58+01:00
+[2024-03-04 16:10:06,917] [DEBUG] [vol_snap_optimize:140] 6a2413dc-5564-426b-8fa3-bc438da1c1f2,  FREEZE_2,  2021-02-17 19:19:04+01:00
+[2024-03-04 16:10:06,921] [DEBUG] [vol_snap_optimize:140] 6ad01abf-d3de-4782-b7c3-d432d1dd05db,  FREEZE_3,  2021-02-17 19:19:09+01:00
+[2024-03-04 16:10:06,924] [DEBUG] [vol_snap_optimize:140] 6a195cd9-3c52-4852-aeff-b4a41ea87964,  NONE_1,  2021-02-18 15:38:03+01:00
+[2024-03-04 16:10:06,927] [DEBUG] [vol_snap_optimize:140] d6f0294c-45af-4716-bbd4-235687eb0b96,  NONE_2,  2021-02-18 15:38:09+01:00
+[2024-03-04 16:10:06,931] [DEBUG] [vol_snap_optimize:140] dbf5e845-1cda-44bc-93ac-45a90ed72adb,  NONE_3,  2021-02-18 15:38:14+01:00
+[2024-03-04 16:10:06,934] [DEBUG] [vol_snap_optimize:140] c2ca8be4-cf18-4ba2-81e9-98064112d5e3,  5min.2023-01-11_1240,  2023-01-11 12:40:00+01:00
+[2024-03-04 16:10:06,937] [DEBUG] [vol_snap_optimize:140] ff90e613-517a-4755-bace-b7d4f2cc35fb,  5min.2023-01-11_1245,  2023-01-11 12:45:00+01:00
+[2024-03-04 16:10:06,941] [DEBUG] [vol_snap_optimize:140] 4a3cf806-4459-421a-be8d-6a5f782ec82f,  5min.2023-01-11_1250,  2023-01-11 12:50:00+01:00
+[2024-03-04 16:10:06,945] [DEBUG] [vol_snap_optimize:140] be3d7807-3f8f-4e9e-9a30-ecb8f6009335,  5min.2023-01-11_1255,  2023-01-11 12:55:00+01:00
+[2024-03-04 16:10:06,948] [DEBUG] [vol_snap_optimize:140] 5713a96f-16c4-445e-857c-3af0f90b5327,  5min.2023-01-11_1300,  2023-01-11 13:00:00+01:00
+[2024-03-04 16:10:06,951] [DEBUG] [vol_snap_optimize:140] d24d9eb5-db33-4f52-95b8-7c309f102a37,  weekly.2024-02-18_0015,  2024-02-18 00:15:00+01:00
+[2024-03-04 16:10:06,954] [DEBUG] [vol_snap_optimize:140] a4be3685-038b-4477-8f5d-6ea1157028ec,  testme.0,  2024-02-22 17:54:07+01:00
+[2024-03-04 16:10:06,957] [DEBUG] [vol_snap_optimize:140] 03a0531e-89cb-44c2-8cf3-d397149d4ff7,  LH_6.1-snap,  2024-02-22 17:54:24+01:00
+[2024-03-04 16:10:06,961] [DEBUG] [vol_snap_optimize:140] 369e9acf-32ea-4b25-82fd-76bda2b0c049,  testme.1,  2024-02-22 17:54:36+01:00
+[2024-03-04 16:10:06,964] [DEBUG] [vol_snap_optimize:140] 70e0d398-1f2c-44f4-a1ee-c67de3fe360d,  testme.2,  2024-02-22 17:54:39+01:00
+[2024-03-04 16:10:06,967] [DEBUG] [vol_snap_optimize:140] 94f11e0a-0a59-4dbf-a25d-7f1ee6ded54c,  testme.3,  2024-02-22 17:54:41+01:00
+[2024-03-04 16:10:06,970] [DEBUG] [vol_snap_optimize:140] 4ce3f959-c42a-4c9c-8b98-0344a900bdb2,  snapmirror.56c52c0d-d1c2-11ee-b48a-d039ea087acd_2147516749.2024-02-22_214719,  2024-02-22 21:47:19+01:00
+[2024-03-04 16:10:06,973] [DEBUG] [vol_snap_optimize:140] 2d7e6297-5d6a-4027-b1c3-358444b613fa,  weekly.2024-02-25_0015,  2024-02-25 00:15:02+01:00
+[2024-03-04 16:10:06,977] [DEBUG] [vol_snap_optimize:140] e387328e-c28c-4e8d-ad4f-c6831aa5854e,  LH_6,  2024-02-26 12:23:46+01:00
+[2024-03-04 16:10:06,981] [DEBUG] [vol_snap_optimize:140] d99e4cb2-e6d5-4fdb-a250-fa04bcfdc95a,  daily.2024-02-27_0010,  2024-02-27 00:10:00+01:00
+[2024-03-04 16:10:06,982] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://jamaica.muccbc.hq.netapp.com:443 in volume lucky_volume:
+[2024-03-04 16:10:11,450] [ INFO] [vol_snap_optimize:367] Volume restore is cancelled by operator. Exiting. 
+INFO:snapshots:+ Looking up volume unlucky_volume on vserver svm_alexeym40 on cluster trinidad.muccbc.hq.netapp.com 
+INFO:snapshots:++ Found volume unlucky_volume UUID = bd5ec07e-d1c2-11ee-b48a-d039ea087acd 
+                      on cluster trinidad.muccbc.hq.netapp.com
+INFO:snapshots:Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+[2024-03-04 16:19:05,540] [ INFO] [vol_snap_optimize:81] + Looking up volume unlucky_volume on vserver svm_alexeym40 on cluster trinidad.muccbc.hq.netapp.com 
+[2024-03-04 16:19:05,896] [ INFO] [vol_snap_optimize:279] ++ Found volume unlucky_volume UUID = bd5ec07e-d1c2-11ee-b48a-d039ea087acd 
+                      on cluster trinidad.muccbc.hq.netapp.com
+[2024-03-04 16:19:06,426] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+2024-03-04 16:19:06,622 - 5004c13c-37ec-43e6-8988-3a097b6253ea,  LH_1,  2021-02-17 19:13:20+01:00
+2024-03-04 16:19:06,626 - 1809056e-3bfa-41f7-93d6-b3ee6f818743,  LH_2,  2021-02-17 19:13:26+01:00
+2024-03-04 16:19:06,630 - 95edc8b2-7268-4210-962b-b7bc154a705a,  LH_3,  2021-02-17 19:13:31+01:00
+2024-03-04 16:19:06,634 - b8ea84ab-cae7-41b0-aea3-ad7b2388595f,  LH_4,  2021-02-17 19:13:36+01:00
+2024-03-04 16:19:06,637 - 6cdb1481-8612-4362-b331-b9bb2a3dde70,  LH_5,  2021-02-17 19:13:42+01:00
+2024-03-04 16:19:06,641 - 061c7862-e62d-4ae6-9021-5d34aa290784,  FREEZE_1,  2021-02-17 19:18:58+01:00
+2024-03-04 16:19:06,644 - 6a2413dc-5564-426b-8fa3-bc438da1c1f2,  FREEZE_2,  2021-02-17 19:19:04+01:00
+2024-03-04 16:19:06,648 - 6ad01abf-d3de-4782-b7c3-d432d1dd05db,  FREEZE_3,  2021-02-17 19:19:09+01:00
+2024-03-04 16:19:06,651 - 6a195cd9-3c52-4852-aeff-b4a41ea87964,  NONE_1,  2021-02-18 15:38:03+01:00
+2024-03-04 16:19:06,655 - d6f0294c-45af-4716-bbd4-235687eb0b96,  NONE_2,  2021-02-18 15:38:09+01:00
+2024-03-04 16:19:06,660 - dbf5e845-1cda-44bc-93ac-45a90ed72adb,  NONE_3,  2021-02-18 15:38:14+01:00
+2024-03-04 16:19:06,664 - c2ca8be4-cf18-4ba2-81e9-98064112d5e3,  5min.2023-01-11_1240,  2023-01-11 12:40:00+01:00
+2024-03-04 16:19:06,668 - ff90e613-517a-4755-bace-b7d4f2cc35fb,  5min.2023-01-11_1245,  2023-01-11 12:45:00+01:00
+2024-03-04 16:19:06,672 - 4a3cf806-4459-421a-be8d-6a5f782ec82f,  5min.2023-01-11_1250,  2023-01-11 12:50:00+01:00
+2024-03-04 16:19:06,676 - be3d7807-3f8f-4e9e-9a30-ecb8f6009335,  5min.2023-01-11_1255,  2023-01-11 12:55:00+01:00
+2024-03-04 16:19:06,681 - 5713a96f-16c4-445e-857c-3af0f90b5327,  5min.2023-01-11_1300,  2023-01-11 13:00:00+01:00
+2024-03-04 16:19:06,687 - d24d9eb5-db33-4f52-95b8-7c309f102a37,  weekly.2024-02-18_0015,  2024-02-18 00:15:00+01:00
+2024-03-04 16:19:06,691 - a4be3685-038b-4477-8f5d-6ea1157028ec,  testme.0,  2024-02-22 17:54:07+01:00
+2024-03-04 16:19:06,696 - 03a0531e-89cb-44c2-8cf3-d397149d4ff7,  LH_6.1-snap,  2024-02-22 17:54:24+01:00
+2024-03-04 16:19:06,700 - 369e9acf-32ea-4b25-82fd-76bda2b0c049,  testme.1,  2024-02-22 17:54:36+01:00
+2024-03-04 16:19:06,703 - 70e0d398-1f2c-44f4-a1ee-c67de3fe360d,  testme.2,  2024-02-22 17:54:39+01:00
+2024-03-04 16:19:06,707 - 94f11e0a-0a59-4dbf-a25d-7f1ee6ded54c,  testme.3,  2024-02-22 17:54:41+01:00
+2024-03-04 16:19:06,711 - 4ce3f959-c42a-4c9c-8b98-0344a900bdb2,  snapmirror.56c52c0d-d1c2-11ee-b48a-d039ea087acd_2147516749.2024-02-22_214719,  2024-02-22 21:47:19+01:00
+2024-03-04 16:19:06,715 - 2d7e6297-5d6a-4027-b1c3-358444b613fa,  weekly.2024-02-25_0015,  2024-02-25 00:15:02+01:00
+2024-03-04 16:19:06,719 - e387328e-c28c-4e8d-ad4f-c6831aa5854e,  LH_6,  2024-02-26 12:23:46+01:00
+2024-03-04 16:19:06,722 - d99e4cb2-e6d5-4fdb-a250-fa04bcfdc95a,  daily.2024-02-27_0010,  2024-02-27 00:10:00+01:00
+[2024-03-04 16:19:06,723] [ INFO] [vol_snap_optimize:100] Searching relevant snapshots on https://trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 16:19:07,027] [ INFO] [vol_snap_optimize:302] The youngest relevant snapshot is found: 
+                  UUID: e387328e-c28c-4e8d-ad4f-c6831aa5854e
+                  name: LH_6
+                  Create time: 2024-02-26 12:23:46+01:00
+[2024-03-04 16:19:07,027] [ INFO] [vol_snap_optimize:81] + Looking up volume lucky_volume on vserver svm_alexeym20 on cluster jamaica.muccbc.hq.netapp.com 
+[2024-03-04 16:19:07,287] [ INFO] [vol_snap_optimize:322] ++ Found volume lucky_volume UUID = 520c5d00-9a24-11ea-9959-00a098d76592 
+                      on cluster jamaica.muccbc.hq.netapp.com
+[2024-03-04 16:19:07,580] [ INFO] [vol_snap_optimize:336] Validating snapshot on source... jamaica.muccbc.hq.netapp.com
+[2024-03-04 16:19:07,768] [ INFO] [vol_snap_optimize:340] 
+        Relevant young snapshot exists on source cluster jamaica.muccbc.hq.netapp.com
+        Volume can be restored to the next avaiable snapshot: daily.2024-02-27_0010
+        
+[2024-03-04 16:19:07,772] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+2024-03-04 16:19:08,002 - 5004c13c-37ec-43e6-8988-3a097b6253ea,  LH_1,  2021-02-17 19:13:20+01:00
+2024-03-04 16:19:08,008 - 1809056e-3bfa-41f7-93d6-b3ee6f818743,  LH_2,  2021-02-17 19:13:26+01:00
+2024-03-04 16:19:08,013 - 95edc8b2-7268-4210-962b-b7bc154a705a,  LH_3,  2021-02-17 19:13:31+01:00
+2024-03-04 16:19:08,019 - b8ea84ab-cae7-41b0-aea3-ad7b2388595f,  LH_4,  2021-02-17 19:13:36+01:00
+2024-03-04 16:19:08,023 - 6cdb1481-8612-4362-b331-b9bb2a3dde70,  LH_5,  2021-02-17 19:13:42+01:00
+2024-03-04 16:19:08,028 - 061c7862-e62d-4ae6-9021-5d34aa290784,  FREEZE_1,  2021-02-17 19:18:58+01:00
+2024-03-04 16:19:08,032 - 6a2413dc-5564-426b-8fa3-bc438da1c1f2,  FREEZE_2,  2021-02-17 19:19:04+01:00
+2024-03-04 16:19:08,036 - 6ad01abf-d3de-4782-b7c3-d432d1dd05db,  FREEZE_3,  2021-02-17 19:19:09+01:00
+2024-03-04 16:19:08,040 - 6a195cd9-3c52-4852-aeff-b4a41ea87964,  NONE_1,  2021-02-18 15:38:03+01:00
+2024-03-04 16:19:08,044 - d6f0294c-45af-4716-bbd4-235687eb0b96,  NONE_2,  2021-02-18 15:38:09+01:00
+2024-03-04 16:19:08,049 - dbf5e845-1cda-44bc-93ac-45a90ed72adb,  NONE_3,  2021-02-18 15:38:14+01:00
+2024-03-04 16:19:08,053 - c2ca8be4-cf18-4ba2-81e9-98064112d5e3,  5min.2023-01-11_1240,  2023-01-11 12:40:00+01:00
+2024-03-04 16:19:08,057 - ff90e613-517a-4755-bace-b7d4f2cc35fb,  5min.2023-01-11_1245,  2023-01-11 12:45:00+01:00
+2024-03-04 16:19:08,060 - 4a3cf806-4459-421a-be8d-6a5f782ec82f,  5min.2023-01-11_1250,  2023-01-11 12:50:00+01:00
+2024-03-04 16:19:08,065 - be3d7807-3f8f-4e9e-9a30-ecb8f6009335,  5min.2023-01-11_1255,  2023-01-11 12:55:00+01:00
+2024-03-04 16:19:08,068 - 5713a96f-16c4-445e-857c-3af0f90b5327,  5min.2023-01-11_1300,  2023-01-11 13:00:00+01:00
+2024-03-04 16:19:08,072 - d24d9eb5-db33-4f52-95b8-7c309f102a37,  weekly.2024-02-18_0015,  2024-02-18 00:15:00+01:00
+2024-03-04 16:19:08,078 - a4be3685-038b-4477-8f5d-6ea1157028ec,  testme.0,  2024-02-22 17:54:07+01:00
+2024-03-04 16:19:08,081 - 03a0531e-89cb-44c2-8cf3-d397149d4ff7,  LH_6.1-snap,  2024-02-22 17:54:24+01:00
+2024-03-04 16:19:08,084 - 369e9acf-32ea-4b25-82fd-76bda2b0c049,  testme.1,  2024-02-22 17:54:36+01:00
+2024-03-04 16:19:08,088 - 70e0d398-1f2c-44f4-a1ee-c67de3fe360d,  testme.2,  2024-02-22 17:54:39+01:00
+2024-03-04 16:19:08,091 - 94f11e0a-0a59-4dbf-a25d-7f1ee6ded54c,  testme.3,  2024-02-22 17:54:41+01:00
+2024-03-04 16:19:08,095 - 4ce3f959-c42a-4c9c-8b98-0344a900bdb2,  snapmirror.56c52c0d-d1c2-11ee-b48a-d039ea087acd_2147516749.2024-02-22_214719,  2024-02-22 21:47:19+01:00
+2024-03-04 16:19:08,098 - 2d7e6297-5d6a-4027-b1c3-358444b613fa,  weekly.2024-02-25_0015,  2024-02-25 00:15:02+01:00
+2024-03-04 16:19:08,101 - e387328e-c28c-4e8d-ad4f-c6831aa5854e,  LH_6,  2024-02-26 12:23:46+01:00
+2024-03-04 16:19:08,104 - d99e4cb2-e6d5-4fdb-a250-fa04bcfdc95a,  daily.2024-02-27_0010,  2024-02-27 00:10:00+01:00
+[2024-03-04 16:19:08,104] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://jamaica.muccbc.hq.netapp.com:443 in volume lucky_volume:
+2024-03-04 16:19:08,295 - 5004c13c-37ec-43e6-8988-3a097b6253ea,  LH_1,  2021-02-17 19:13:20+01:00
+2024-03-04 16:19:08,300 - 1809056e-3bfa-41f7-93d6-b3ee6f818743,  LH_2,  2021-02-17 19:13:26+01:00
+2024-03-04 16:19:08,306 - 95edc8b2-7268-4210-962b-b7bc154a705a,  LH_3,  2021-02-17 19:13:31+01:00
+2024-03-04 16:19:08,312 - b8ea84ab-cae7-41b0-aea3-ad7b2388595f,  LH_4,  2021-02-17 19:13:36+01:00
+2024-03-04 16:19:08,317 - 6cdb1481-8612-4362-b331-b9bb2a3dde70,  LH_5,  2021-02-17 19:13:42+01:00
+2024-03-04 16:19:08,321 - 061c7862-e62d-4ae6-9021-5d34aa290784,  FREEZE_1,  2021-02-17 19:18:58+01:00
+2024-03-04 16:19:08,326 - 6a2413dc-5564-426b-8fa3-bc438da1c1f2,  FREEZE_2,  2021-02-17 19:19:04+01:00
+2024-03-04 16:19:08,329 - 6ad01abf-d3de-4782-b7c3-d432d1dd05db,  FREEZE_3,  2021-02-17 19:19:09+01:00
+2024-03-04 16:19:08,334 - 6a195cd9-3c52-4852-aeff-b4a41ea87964,  NONE_1,  2021-02-18 15:38:03+01:00
+2024-03-04 16:19:08,337 - d6f0294c-45af-4716-bbd4-235687eb0b96,  NONE_2,  2021-02-18 15:38:09+01:00
+2024-03-04 16:19:08,341 - dbf5e845-1cda-44bc-93ac-45a90ed72adb,  NONE_3,  2021-02-18 15:38:14+01:00
+2024-03-04 16:19:08,345 - c2ca8be4-cf18-4ba2-81e9-98064112d5e3,  5min.2023-01-11_1240,  2023-01-11 12:40:00+01:00
+2024-03-04 16:19:08,349 - ff90e613-517a-4755-bace-b7d4f2cc35fb,  5min.2023-01-11_1245,  2023-01-11 12:45:00+01:00
+2024-03-04 16:19:08,352 - 4a3cf806-4459-421a-be8d-6a5f782ec82f,  5min.2023-01-11_1250,  2023-01-11 12:50:00+01:00
+2024-03-04 16:19:08,356 - be3d7807-3f8f-4e9e-9a30-ecb8f6009335,  5min.2023-01-11_1255,  2023-01-11 12:55:00+01:00
+2024-03-04 16:19:08,359 - 5713a96f-16c4-445e-857c-3af0f90b5327,  5min.2023-01-11_1300,  2023-01-11 13:00:00+01:00
+2024-03-04 16:19:08,362 - a4be3685-038b-4477-8f5d-6ea1157028ec,  testme.0,  2024-02-22 17:54:07+01:00
+2024-03-04 16:19:08,366 - 03a0531e-89cb-44c2-8cf3-d397149d4ff7,  LH_6.1-snap,  2024-02-22 17:54:24+01:00
+2024-03-04 16:19:08,369 - 369e9acf-32ea-4b25-82fd-76bda2b0c049,  testme.1,  2024-02-22 17:54:36+01:00
+2024-03-04 16:19:08,374 - 70e0d398-1f2c-44f4-a1ee-c67de3fe360d,  testme.2,  2024-02-22 17:54:39+01:00
+2024-03-04 16:19:08,377 - 94f11e0a-0a59-4dbf-a25d-7f1ee6ded54c,  testme.3,  2024-02-22 17:54:41+01:00
+2024-03-04 16:19:08,380 - 2d7e6297-5d6a-4027-b1c3-358444b613fa,  weekly.2024-02-25_0015,  2024-02-25 00:15:02+01:00
+2024-03-04 16:19:08,383 - e387328e-c28c-4e8d-ad4f-c6831aa5854e,  LH_6,  2024-02-26 12:23:46+01:00
+2024-03-04 16:19:08,386 - d3c2cf80-51fb-4d67-b6f3-ede38f1ddf44,  snapmirror.56c52c0d-d1c2-11ee-b48a-d039ea087acd_2147516749.2024-02-28_195257,  2024-02-28 19:52:57+01:00
+2024-03-04 16:19:08,390 - 30902804-3e38-4a38-af96-f519419e2588,  daily.2024-03-03_0010,  2024-03-03 00:10:02+01:00
+2024-03-04 16:19:08,393 - 66c978c2-24a7-4458-9bf9-ecb7f66d0df4,  weekly.2024-03-03_0015,  2024-03-03 00:15:00+01:00
+2024-03-04 16:19:08,396 - 91c60c16-afe3-481c-a6ea-b22c4cf2b419,  daily.2024-03-04_0010,  2024-03-04 00:10:02+01:00
+2024-03-04 16:19:08,400 - 8f6b3f54-4457-4487-bc8a-f6542c120865,  hourly.2024-03-04_1105,  2024-03-04 11:05:01+01:00
+2024-03-04 16:19:08,403 - f1fd10dc-024f-419f-9af7-bfbeb09fb3cb,  hourly.2024-03-04_1205,  2024-03-04 12:05:00+01:00
+2024-03-04 16:19:08,406 - 15047964-762e-47d7-9fb0-c745a231bfe4,  hourly.2024-03-04_1305,  2024-03-04 13:05:00+01:00
+2024-03-04 16:19:08,410 - afc15ecc-8b7e-4df1-916d-d21bec11e9fb,  hourly.2024-03-04_1405,  2024-03-04 14:05:00+01:00
+2024-03-04 16:19:08,414 - 5dc03cb2-12de-4b29-b458-761aa56e7525,  hourly.2024-03-04_1505,  2024-03-04 15:05:00+01:00
+2024-03-04 16:19:08,416 - 633d5d6c-15ac-471f-b57a-36d2bebef75e,  hourly.2024-03-04_1605,  2024-03-04 16:05:00+01:00
+[2024-03-04 16:19:09,849] [ INFO] [vol_snap_optimize:379] Volume restore is cancelled by operator. Exiting. 
+[2024-03-04 16:20:24,362] [ INFO] [vol_snap_optimize:81] + Looking up volume unlucky_volume on vserver svm_alexeym40 on cluster trinidad.muccbc.hq.netapp.com 
+[2024-03-04 16:20:25,143] [ INFO] [vol_snap_optimize:279] ++ Found volume unlucky_volume UUID = bd5ec07e-d1c2-11ee-b48a-d039ea087acd 
+                      on cluster trinidad.muccbc.hq.netapp.com
+[2024-03-04 16:20:25,656] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+2024-03-04 16:20:25,891 - 5004c13c-37ec-43e6-8988-3a097b6253ea,  LH_1,  2021-02-17 19:13:20+01:00
+2024-03-04 16:20:25,901 - 1809056e-3bfa-41f7-93d6-b3ee6f818743,  LH_2,  2021-02-17 19:13:26+01:00
+2024-03-04 16:20:25,908 - 95edc8b2-7268-4210-962b-b7bc154a705a,  LH_3,  2021-02-17 19:13:31+01:00
+2024-03-04 16:20:25,915 - b8ea84ab-cae7-41b0-aea3-ad7b2388595f,  LH_4,  2021-02-17 19:13:36+01:00
+2024-03-04 16:20:25,922 - 6cdb1481-8612-4362-b331-b9bb2a3dde70,  LH_5,  2021-02-17 19:13:42+01:00
+2024-03-04 16:20:25,927 - 061c7862-e62d-4ae6-9021-5d34aa290784,  FREEZE_1,  2021-02-17 19:18:58+01:00
+2024-03-04 16:20:25,931 - 6a2413dc-5564-426b-8fa3-bc438da1c1f2,  FREEZE_2,  2021-02-17 19:19:04+01:00
+2024-03-04 16:20:25,935 - 6ad01abf-d3de-4782-b7c3-d432d1dd05db,  FREEZE_3,  2021-02-17 19:19:09+01:00
+2024-03-04 16:20:25,938 - 6a195cd9-3c52-4852-aeff-b4a41ea87964,  NONE_1,  2021-02-18 15:38:03+01:00
+2024-03-04 16:20:25,942 - d6f0294c-45af-4716-bbd4-235687eb0b96,  NONE_2,  2021-02-18 15:38:09+01:00
+2024-03-04 16:20:25,945 - dbf5e845-1cda-44bc-93ac-45a90ed72adb,  NONE_3,  2021-02-18 15:38:14+01:00
+2024-03-04 16:20:25,949 - c2ca8be4-cf18-4ba2-81e9-98064112d5e3,  5min.2023-01-11_1240,  2023-01-11 12:40:00+01:00
+2024-03-04 16:20:25,953 - ff90e613-517a-4755-bace-b7d4f2cc35fb,  5min.2023-01-11_1245,  2023-01-11 12:45:00+01:00
+2024-03-04 16:20:25,956 - 4a3cf806-4459-421a-be8d-6a5f782ec82f,  5min.2023-01-11_1250,  2023-01-11 12:50:00+01:00
+2024-03-04 16:20:25,960 - be3d7807-3f8f-4e9e-9a30-ecb8f6009335,  5min.2023-01-11_1255,  2023-01-11 12:55:00+01:00
+2024-03-04 16:20:25,963 - 5713a96f-16c4-445e-857c-3af0f90b5327,  5min.2023-01-11_1300,  2023-01-11 13:00:00+01:00
+2024-03-04 16:20:25,966 - d24d9eb5-db33-4f52-95b8-7c309f102a37,  weekly.2024-02-18_0015,  2024-02-18 00:15:00+01:00
+2024-03-04 16:20:25,969 - a4be3685-038b-4477-8f5d-6ea1157028ec,  testme.0,  2024-02-22 17:54:07+01:00
+2024-03-04 16:20:25,973 - 03a0531e-89cb-44c2-8cf3-d397149d4ff7,  LH_6.1-snap,  2024-02-22 17:54:24+01:00
+2024-03-04 16:20:25,977 - 369e9acf-32ea-4b25-82fd-76bda2b0c049,  testme.1,  2024-02-22 17:54:36+01:00
+2024-03-04 16:20:25,979 - 70e0d398-1f2c-44f4-a1ee-c67de3fe360d,  testme.2,  2024-02-22 17:54:39+01:00
+2024-03-04 16:20:25,982 - 94f11e0a-0a59-4dbf-a25d-7f1ee6ded54c,  testme.3,  2024-02-22 17:54:41+01:00
+2024-03-04 16:20:25,986 - 4ce3f959-c42a-4c9c-8b98-0344a900bdb2,  snapmirror.56c52c0d-d1c2-11ee-b48a-d039ea087acd_2147516749.2024-02-22_214719,  2024-02-22 21:47:19+01:00
+2024-03-04 16:20:25,990 - 2d7e6297-5d6a-4027-b1c3-358444b613fa,  weekly.2024-02-25_0015,  2024-02-25 00:15:02+01:00
+2024-03-04 16:20:25,992 - e387328e-c28c-4e8d-ad4f-c6831aa5854e,  LH_6,  2024-02-26 12:23:46+01:00
+2024-03-04 16:20:25,996 - d99e4cb2-e6d5-4fdb-a250-fa04bcfdc95a,  daily.2024-02-27_0010,  2024-02-27 00:10:00+01:00
+[2024-03-04 16:20:25,996] [ INFO] [vol_snap_optimize:100] Searching relevant snapshots on https://trinidad.muccbc.hq.netapp.com:443
+[2024-03-04 16:20:26,277] [ INFO] [vol_snap_optimize:302] The youngest relevant snapshot is found: 
+                  UUID: e387328e-c28c-4e8d-ad4f-c6831aa5854e
+                  name: LH_6
+                  Create time: 2024-02-26 12:23:46+01:00
+[2024-03-04 16:20:26,277] [ INFO] [vol_snap_optimize:81] + Looking up volume lucky_volume on vserver svm_alexeym20 on cluster jamaica.muccbc.hq.netapp.com 
+[2024-03-04 16:20:26,552] [ INFO] [vol_snap_optimize:322] ++ Found volume lucky_volume UUID = 520c5d00-9a24-11ea-9959-00a098d76592 
+                      on cluster jamaica.muccbc.hq.netapp.com
+[2024-03-04 16:20:26,869] [ INFO] [vol_snap_optimize:336] Validating snapshot on source... jamaica.muccbc.hq.netapp.com
+[2024-03-04 16:20:27,082] [ INFO] [vol_snap_optimize:340] 
+        Relevant young snapshot exists on source cluster jamaica.muccbc.hq.netapp.com
+        Volume can be restored to the next avaiable snapshot: daily.2024-02-27_0010
+        
+[2024-03-04 16:20:27,085] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://trinidad.muccbc.hq.netapp.com:443 in volume unlucky_volume:
+2024-03-04 16:20:27,307 - 5004c13c-37ec-43e6-8988-3a097b6253ea,  LH_1,  2021-02-17 19:13:20+01:00
+2024-03-04 16:20:27,311 - 1809056e-3bfa-41f7-93d6-b3ee6f818743,  LH_2,  2021-02-17 19:13:26+01:00
+2024-03-04 16:20:27,315 - 95edc8b2-7268-4210-962b-b7bc154a705a,  LH_3,  2021-02-17 19:13:31+01:00
+2024-03-04 16:20:27,319 - b8ea84ab-cae7-41b0-aea3-ad7b2388595f,  LH_4,  2021-02-17 19:13:36+01:00
+2024-03-04 16:20:27,322 - 6cdb1481-8612-4362-b331-b9bb2a3dde70,  LH_5,  2021-02-17 19:13:42+01:00
+2024-03-04 16:20:27,326 - 061c7862-e62d-4ae6-9021-5d34aa290784,  FREEZE_1,  2021-02-17 19:18:58+01:00
+2024-03-04 16:20:27,329 - 6a2413dc-5564-426b-8fa3-bc438da1c1f2,  FREEZE_2,  2021-02-17 19:19:04+01:00
+2024-03-04 16:20:27,332 - 6ad01abf-d3de-4782-b7c3-d432d1dd05db,  FREEZE_3,  2021-02-17 19:19:09+01:00
+2024-03-04 16:20:27,335 - 6a195cd9-3c52-4852-aeff-b4a41ea87964,  NONE_1,  2021-02-18 15:38:03+01:00
+2024-03-04 16:20:27,338 - d6f0294c-45af-4716-bbd4-235687eb0b96,  NONE_2,  2021-02-18 15:38:09+01:00
+2024-03-04 16:20:27,342 - dbf5e845-1cda-44bc-93ac-45a90ed72adb,  NONE_3,  2021-02-18 15:38:14+01:00
+2024-03-04 16:20:27,345 - c2ca8be4-cf18-4ba2-81e9-98064112d5e3,  5min.2023-01-11_1240,  2023-01-11 12:40:00+01:00
+2024-03-04 16:20:27,349 - ff90e613-517a-4755-bace-b7d4f2cc35fb,  5min.2023-01-11_1245,  2023-01-11 12:45:00+01:00
+2024-03-04 16:20:27,352 - 4a3cf806-4459-421a-be8d-6a5f782ec82f,  5min.2023-01-11_1250,  2023-01-11 12:50:00+01:00
+2024-03-04 16:20:27,356 - be3d7807-3f8f-4e9e-9a30-ecb8f6009335,  5min.2023-01-11_1255,  2023-01-11 12:55:00+01:00
+2024-03-04 16:20:27,359 - 5713a96f-16c4-445e-857c-3af0f90b5327,  5min.2023-01-11_1300,  2023-01-11 13:00:00+01:00
+2024-03-04 16:20:27,362 - d24d9eb5-db33-4f52-95b8-7c309f102a37,  weekly.2024-02-18_0015,  2024-02-18 00:15:00+01:00
+2024-03-04 16:20:27,366 - a4be3685-038b-4477-8f5d-6ea1157028ec,  testme.0,  2024-02-22 17:54:07+01:00
+2024-03-04 16:20:27,369 - 03a0531e-89cb-44c2-8cf3-d397149d4ff7,  LH_6.1-snap,  2024-02-22 17:54:24+01:00
+2024-03-04 16:20:27,373 - 369e9acf-32ea-4b25-82fd-76bda2b0c049,  testme.1,  2024-02-22 17:54:36+01:00
+2024-03-04 16:20:27,376 - 70e0d398-1f2c-44f4-a1ee-c67de3fe360d,  testme.2,  2024-02-22 17:54:39+01:00
+2024-03-04 16:20:27,380 - 94f11e0a-0a59-4dbf-a25d-7f1ee6ded54c,  testme.3,  2024-02-22 17:54:41+01:00
+2024-03-04 16:20:27,383 - 4ce3f959-c42a-4c9c-8b98-0344a900bdb2,  snapmirror.56c52c0d-d1c2-11ee-b48a-d039ea087acd_2147516749.2024-02-22_214719,  2024-02-22 21:47:19+01:00
+2024-03-04 16:20:27,387 - 2d7e6297-5d6a-4027-b1c3-358444b613fa,  weekly.2024-02-25_0015,  2024-02-25 00:15:02+01:00
+2024-03-04 16:20:27,390 - e387328e-c28c-4e8d-ad4f-c6831aa5854e,  LH_6,  2024-02-26 12:23:46+01:00
+2024-03-04 16:20:27,394 - d99e4cb2-e6d5-4fdb-a250-fa04bcfdc95a,  daily.2024-02-27_0010,  2024-02-27 00:10:00+01:00
+[2024-03-04 16:20:27,395] [ INFO] [vol_snap_optimize:135] Listing all snapshots on cluster https://jamaica.muccbc.hq.netapp.com:443 in volume lucky_volume:
+2024-03-04 16:20:27,618 - 5004c13c-37ec-43e6-8988-3a097b6253ea,  LH_1,  2021-02-17 19:13:20+01:00
+2024-03-04 16:20:27,630 - 1809056e-3bfa-41f7-93d6-b3ee6f818743,  LH_2,  2021-02-17 19:13:26+01:00
+2024-03-04 16:20:27,639 - 95edc8b2-7268-4210-962b-b7bc154a705a,  LH_3,  2021-02-17 19:13:31+01:00
+2024-03-04 16:20:27,644 - b8ea84ab-cae7-41b0-aea3-ad7b2388595f,  LH_4,  2021-02-17 19:13:36+01:00
+2024-03-04 16:20:27,650 - 6cdb1481-8612-4362-b331-b9bb2a3dde70,  LH_5,  2021-02-17 19:13:42+01:00
+2024-03-04 16:20:27,655 - 061c7862-e62d-4ae6-9021-5d34aa290784,  FREEZE_1,  2021-02-17 19:18:58+01:00
+2024-03-04 16:20:27,658 - 6a2413dc-5564-426b-8fa3-bc438da1c1f2,  FREEZE_2,  2021-02-17 19:19:04+01:00
+2024-03-04 16:20:27,662 - 6ad01abf-d3de-4782-b7c3-d432d1dd05db,  FREEZE_3,  2021-02-17 19:19:09+01:00
+2024-03-04 16:20:27,666 - 6a195cd9-3c52-4852-aeff-b4a41ea87964,  NONE_1,  2021-02-18 15:38:03+01:00
+2024-03-04 16:20:27,670 - d6f0294c-45af-4716-bbd4-235687eb0b96,  NONE_2,  2021-02-18 15:38:09+01:00
+2024-03-04 16:20:27,673 - dbf5e845-1cda-44bc-93ac-45a90ed72adb,  NONE_3,  2021-02-18 15:38:14+01:00
+2024-03-04 16:20:27,677 - c2ca8be4-cf18-4ba2-81e9-98064112d5e3,  5min.2023-01-11_1240,  2023-01-11 12:40:00+01:00
+2024-03-04 16:20:27,681 - ff90e613-517a-4755-bace-b7d4f2cc35fb,  5min.2023-01-11_1245,  2023-01-11 12:45:00+01:00
+2024-03-04 16:20:27,686 - 4a3cf806-4459-421a-be8d-6a5f782ec82f,  5min.2023-01-11_1250,  2023-01-11 12:50:00+01:00
+2024-03-04 16:20:27,690 - be3d7807-3f8f-4e9e-9a30-ecb8f6009335,  5min.2023-01-11_1255,  2023-01-11 12:55:00+01:00
+2024-03-04 16:20:27,693 - 5713a96f-16c4-445e-857c-3af0f90b5327,  5min.2023-01-11_1300,  2023-01-11 13:00:00+01:00
+2024-03-04 16:20:27,696 - a4be3685-038b-4477-8f5d-6ea1157028ec,  testme.0,  2024-02-22 17:54:07+01:00
+2024-03-04 16:20:27,700 - 03a0531e-89cb-44c2-8cf3-d397149d4ff7,  LH_6.1-snap,  2024-02-22 17:54:24+01:00
+2024-03-04 16:20:27,704 - 369e9acf-32ea-4b25-82fd-76bda2b0c049,  testme.1,  2024-02-22 17:54:36+01:00
+2024-03-04 16:20:27,707 - 70e0d398-1f2c-44f4-a1ee-c67de3fe360d,  testme.2,  2024-02-22 17:54:39+01:00
+2024-03-04 16:20:27,710 - 94f11e0a-0a59-4dbf-a25d-7f1ee6ded54c,  testme.3,  2024-02-22 17:54:41+01:00
+2024-03-04 16:20:27,713 - 2d7e6297-5d6a-4027-b1c3-358444b613fa,  weekly.2024-02-25_0015,  2024-02-25 00:15:02+01:00
+2024-03-04 16:20:27,717 - e387328e-c28c-4e8d-ad4f-c6831aa5854e,  LH_6,  2024-02-26 12:23:46+01:00
+2024-03-04 16:20:27,719 - d3c2cf80-51fb-4d67-b6f3-ede38f1ddf44,  snapmirror.56c52c0d-d1c2-11ee-b48a-d039ea087acd_2147516749.2024-02-28_195257,  2024-02-28 19:52:57+01:00
+2024-03-04 16:20:27,722 - 30902804-3e38-4a38-af96-f519419e2588,  daily.2024-03-03_0010,  2024-03-03 00:10:02+01:00
+2024-03-04 16:20:27,725 - 66c978c2-24a7-4458-9bf9-ecb7f66d0df4,  weekly.2024-03-03_0015,  2024-03-03 00:15:00+01:00
+2024-03-04 16:20:27,729 - 91c60c16-afe3-481c-a6ea-b22c4cf2b419,  daily.2024-03-04_0010,  2024-03-04 00:10:02+01:00
+2024-03-04 16:20:27,733 - 8f6b3f54-4457-4487-bc8a-f6542c120865,  hourly.2024-03-04_1105,  2024-03-04 11:05:01+01:00
+2024-03-04 16:20:27,736 - f1fd10dc-024f-419f-9af7-bfbeb09fb3cb,  hourly.2024-03-04_1205,  2024-03-04 12:05:00+01:00
+2024-03-04 16:20:27,739 - 15047964-762e-47d7-9fb0-c745a231bfe4,  hourly.2024-03-04_1305,  2024-03-04 13:05:00+01:00
+2024-03-04 16:20:27,742 - afc15ecc-8b7e-4df1-916d-d21bec11e9fb,  hourly.2024-03-04_1405,  2024-03-04 14:05:00+01:00
+2024-03-04 16:20:27,746 - 5dc03cb2-12de-4b29-b458-761aa56e7525,  hourly.2024-03-04_1505,  2024-03-04 15:05:00+01:00
+2024-03-04 16:20:27,749 - 633d5d6c-15ac-471f-b57a-36d2bebef75e,  hourly.2024-03-04_1605,  2024-03-04 16:05:00+01:00
